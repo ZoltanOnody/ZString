@@ -174,3 +174,6 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+
+# other
+cmake-build-debug
