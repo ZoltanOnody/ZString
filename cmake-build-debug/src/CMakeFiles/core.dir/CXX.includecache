@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/zoli/AIN/programming3/semestral_project/src/riesenie.cpp
+iostream
+-
+riesenie.h
+/home/zoli/AIN/programming3/semestral_project/src/riesenie.h
+
+/home/zoli/AIN/programming3/semestral_project/src/riesenie.h
+

@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/semestral_project.dir/riesenie.cpp.o  -o semestral_project 
