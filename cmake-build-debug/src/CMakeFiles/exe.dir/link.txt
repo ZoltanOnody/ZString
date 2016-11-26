@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/exe.dir/main.cpp.o  -o exe libcore.a 

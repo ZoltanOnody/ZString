@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/runUnitTests.dir/gtest_main.cc.o  -o runUnitTests -rdynamic ../googletest-build/googlemock/gtest/libgtest.a ../googletest-build/googlemock/libgmock.a ../src/libcore.a -lpthread 
