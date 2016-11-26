@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #if !defined( _RIESENIE_H_ )
 #define _RIESENIE_H_
 
@@ -8,6 +10,13 @@ class ZString {
 public:
     ZString() : ZString("") {};
     ZString(const char *data);
+
+    char operator [] (int i) const {
+        if(i >= len) {
+            throw std::out_of_range("Index out of range!");
+        }
+        return data[i];
+    }
 
     size_t length();
 	char *value();

@@ -176,4 +176,4 @@ fabric.properties
 # *.ipr
 
 # other
-cmake-build-debug
+cmake-build-debug/

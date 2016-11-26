@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 /home/zoli/AIN/programming3/semestral_project/src/riesenie.h
+stdexcept
+-
 
 /home/zoli/AIN/programming3/semestral_project/test/gtest/gtest.h
 limits
