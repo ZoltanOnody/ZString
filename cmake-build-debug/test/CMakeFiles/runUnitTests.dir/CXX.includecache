@@ -45,8 +45,6 @@ testyUloha_1.cpp
 /home/zoli/AIN/programming3/semestral_project/test/testyUloha_1.cpp
 
 /home/zoli/AIN/programming3/semestral_project/test/testyUloha_1.cpp
-iostream
--
 gtest/gtest.h
 /home/zoli/AIN/programming3/semestral_project/test/gtest/gtest.h
 ../src/riesenie.h

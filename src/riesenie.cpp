@@ -1,16 +1,23 @@
 #include <iostream>
+#include <cstring>
 
 #include "riesenie.h"
 
 using namespace std;
 
-const bool DUMMY_BOOL = false;
-const int DUMMY_INT = -0;
-const string DUMMY_STRING = "";
 
 // Uloha 1.
+ZString::ZString(const char *data) {
+    size_t len = strlen(data);
+    this->len = len;
+    this->data = new char[len+1];
+    strcpy(this->data, data);
+}
 
+size_t ZString::length() {
+	return len;
+}
 
-int ZString::length(){
-	return DUMMY_INT;
+char *ZString::value() {
+    return data;
 }

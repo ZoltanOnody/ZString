@@ -2,11 +2,15 @@
 #define _RIESENIE_H_
 
 class ZString {
-	int len;
-	char *data;
+    size_t len = 0;
+    char *data = nullptr;
 
 public:
-	int length();
+    ZString() : ZString("") {};
+    ZString(const char *data);
+
+    size_t length();
+	char *value();
 };
 
 #endif
