@@ -45,3 +45,8 @@ ZString ZString::operator+(ZString obj) {
 
     return new_obj;
 }
+
+void ZString::operator+=(ZString obj) {
+    ZString new_obj = *this + obj;
+    *this = new_obj;
+}

@@ -15,6 +15,8 @@ public:
 
     ZString operator+(ZString obj);
 
+    void operator+=(ZString obj);
+
     size_t length();
 	char *value();
 };

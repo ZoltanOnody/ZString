@@ -44,6 +44,13 @@ TEST_F(Test, ConcatZStrings) {
     ASSERT_STREQ(tmp.value(), "ABCD");
 
     ZString s3;
-
     ASSERT_STREQ((tmp + s3).value(), "ABCD");
+}
+
+TEST_F(Test, AppendZStrings) {
+    ZString s1("AB");
+    ZString s2("CD");
+
+    s1 += s2;
+    ASSERT_STREQ(s1.value(), "ABCD");
 }
