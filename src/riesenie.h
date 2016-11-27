@@ -11,12 +11,9 @@ public:
     ZString() : ZString("") {};
     ZString(const char *data);
 
-    char operator [] (int i) const {
-        if(i >= len) {
-            throw std::out_of_range("Index out of range!");
-        }
-        return data[i];
-    }
+    char operator[](int i) const;
+
+    ZString operator+(ZString obj);
 
     size_t length();
 	char *value();

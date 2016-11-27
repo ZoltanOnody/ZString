@@ -35,3 +35,15 @@ TEST_F(Test, AccessOperatorSquareBracket) {
         FAIL() << "Expected std::out_of_range";
     }
 }
+
+TEST_F(Test, ConcatZStrings) {
+    ZString s1("AB");
+    ZString s2("CD");
+
+    ZString tmp = s1 + s2;
+    ASSERT_STREQ(tmp.value(), "ABCD");
+
+    ZString s3;
+
+    ASSERT_STREQ((tmp + s3).value(), "ABCD");
+}
