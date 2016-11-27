@@ -7,52 +7,54 @@ class ZString {
     size_t len = 0;
     char *data = nullptr;
 
-    bool is_subset(char const *container);
+    bool is_subset(char const *container) const;
 
-    bool empty_intersection(char const *container);
+    bool empty_intersection(char const *container) const;
 
 public:
     ZString() : ZString("") {};
-    ZString(const char *data);
 
-    char operator[](int i) const;
+    ZString(char const *data);
 
-    ZString operator+(ZString obj);
+    char operator[](int const i) const;
 
-    ZString operator*(int mul);
+    ZString operator+(ZString const obj) const;
 
-    void operator+=(ZString obj);
+    ZString operator*(int const mul) const;
 
-    void operator*=(int mul);
+    void operator+=(ZString const obj);
 
-    bool operator<(ZString obj);
+    void operator*=(int const mul);
 
-    bool operator>(ZString obj);
+    bool operator<(ZString const obj) const;
 
-    bool operator==(ZString obj);
+    bool operator>(ZString const obj) const;
 
-    bool operator<=(ZString obj);
+    bool operator==(ZString const obj) const;
 
-    bool operator>=(ZString obj);
+    bool operator<=(ZString const obj) const;
 
-    bool operator!=(ZString obj);
+    bool operator>=(ZString const obj) const;
 
-    size_t length();
-	char *value();
+    bool operator!=(ZString const obj) const;
 
-    bool isdigit();
+    size_t length() const;
 
-    bool isalnum();
+    char *value() const;
 
-    bool isalpha();
+    bool isdigit() const;
 
-    bool islower();
+    bool isalnum() const;
 
-    bool isupper();
+    bool isalpha() const;
 
-    bool isprintable();
+    bool islower() const;
 
-    bool isspace();
+    bool isupper() const;
+
+    bool isprintable() const;
+
+    bool isspace() const;
 
 };
 
