@@ -204,3 +204,11 @@ unsigned int ZString::rindex(ZString const obj, unsigned int const start, unsign
 
     throw std::invalid_argument("Substring not found!");
 }
+
+void ZString::reverse() {
+    for (unsigned int i = 0; i < len / 2; i++) {
+        char tmp = (*this)[i];
+        (*this)[i] = (*this)[len - i - 1];
+        (*this)[len - i - 1] = tmp;
+    }
+}

@@ -94,6 +94,8 @@ public:
 
     unsigned int rindex(ZString const obj, unsigned int const start, unsigned int const end) const;
 
+    void reverse();
+
 };
 
 #endif

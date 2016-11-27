@@ -263,3 +263,11 @@ TEST(Test, RIndex) {
         FAIL() << "Expected std::invalid_argument";
     }
 }
+
+TEST(Test, Reverse) {
+    ZString s1("Howdy");
+    s1.reverse();
+
+    ASSERT_STREQ(s1.value(), "ydwoH");
+}
+
