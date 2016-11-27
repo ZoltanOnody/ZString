@@ -7,7 +7,6 @@ The class will be created in the methodology of TDD and will contain the methods
 ```
 [
     '__add__',
-    '__contains__',     # str1.contains(str2)
     '__eq__',
     '__ge__',
     '__getitem__',
@@ -62,12 +61,10 @@ The class will be created in the methodology of TDD and will contain the methods
 
 ```
 [
-    '__contains__',     # str1.contains(str2)
     '__iter__',
     '__str__',
     'capitalize',
     'center',
-    'count',
     'endswith',
     'ljust',
     'lower',

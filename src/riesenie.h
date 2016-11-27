@@ -96,6 +96,10 @@ public:
 
     int rfind(ZString const obj, unsigned int const start, unsigned int const end) const;
 
+    int count(ZString const obj, unsigned int const start = 0) const;
+
+    int count(ZString const obj, unsigned int const start, unsigned int const end) const;
+
     void reverse();
 
 };

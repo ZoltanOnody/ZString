@@ -292,3 +292,17 @@ TEST(Test, RFind) {
     ASSERT_EQ(s.rfind(sub1, 0, 10), 0);
     ASSERT_EQ(s.rfind(sub2), -1);
 }
+
+
+TEST(Test, Count) {
+    ZString s("Hi, how do you do Hillary? hmmmmm...");
+    ZString sub1("Hi");
+    ZString sub2("Trumptadada");
+    ZString sub3("mm");
+
+    ASSERT_EQ(s.count(sub1), 2);
+    ASSERT_EQ(s.count(sub1, 5), 1);
+    ASSERT_EQ(s.count(sub1, 0, 10), 1);
+    ASSERT_EQ(s.count(sub2), 0);
+    ASSERT_EQ(s.count(sub3), 2);
+}

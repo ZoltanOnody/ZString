@@ -231,3 +231,23 @@ int ZString::rfind(ZString const obj, unsigned int const start, unsigned int con
         return -1;
     }
 }
+
+int ZString::count(ZString const obj, unsigned int const start) const {
+    return count(obj, start, len);
+}
+
+int ZString::count(ZString const obj, unsigned int const start, unsigned int const end) const {
+    int index = start;
+    int count = 0;
+    while (true) {
+        index = find(obj, index, end);
+        if (index == -1) {
+            break;
+        }
+
+        index += obj.length();
+        count++;
+    }
+
+    return count;
+}
