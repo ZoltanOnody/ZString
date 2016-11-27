@@ -54,3 +54,24 @@ TEST_F(Test, AppendZStrings) {
     s1 += s2;
     ASSERT_STREQ(s1.value(), "ABCD");
 }
+
+TEST_F(Test, MultiplyZStrings) {
+    ZString s("AB");
+    ASSERT_STREQ((s * 0).value(), "");
+    ASSERT_STREQ((s * 1).value(), "AB");
+    ASSERT_STREQ((s * 3).value(), "ABABAB");
+
+    try {
+        s * -1;
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch (std::invalid_argument const &err) {
+        EXPECT_EQ(err.what(), std::string("Multiplication cannot be negative!"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+
+    s *= 2;
+    ASSERT_STREQ(s.value(), "ABAB");
+}

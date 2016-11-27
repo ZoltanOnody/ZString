@@ -50,3 +50,22 @@ void ZString::operator+=(ZString obj) {
     ZString new_obj = *this + obj;
     *this = new_obj;
 }
+
+ZString ZString::operator*(int mul) {
+    if (mul < 0) {
+        throw std::invalid_argument("Multiplication cannot be negative!");
+    }
+
+    ZString ans;
+    for (int i = 0; i < mul; i++) {
+        ans += *this;
+    }
+
+    return ans;
+}
+
+
+void ZString::operator*=(int mul) {
+    ZString new_obj = *this * mul;
+    *this = new_obj;
+}

@@ -15,7 +15,11 @@ public:
 
     ZString operator+(ZString obj);
 
+    ZString operator*(int mul);
+
     void operator+=(ZString obj);
+
+    void operator*=(int mul);
 
     size_t length();
 	char *value();

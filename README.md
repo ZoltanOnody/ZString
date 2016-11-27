@@ -74,7 +74,6 @@ The class will be created in the methodology of TDD and will contain the methods
     '__iter__',
     '__le__',
     '__lt__',
-    '__mul__', # str1.mul(3)
     '__ne__',
     '__new__',
     '__str__',
