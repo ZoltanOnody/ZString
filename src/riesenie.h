@@ -7,6 +7,10 @@ class ZString {
     size_t len = 0;
     char *data = nullptr;
 
+    bool is_subset(char const *container);
+
+    bool empty_intersection(char const *container);
+
 public:
     ZString() : ZString("") {};
     ZString(const char *data);
@@ -35,6 +39,21 @@ public:
 
     size_t length();
 	char *value();
+
+    bool isdigit();
+
+    bool isalnum();
+
+    bool isalpha();
+
+    bool islower();
+
+    bool isupper();
+
+    bool isprintable();
+
+    bool isspace();
+
 };
 
 #endif

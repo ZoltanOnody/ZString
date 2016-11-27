@@ -69,7 +69,6 @@ void ZString::operator*=(int mul) {
     *this = new_obj;
 }
 
-
 bool ZString::operator<(ZString obj) {
     for (int i = 0; i < min(len, obj.length()); i++) {
         if ((*this)[i] < obj[i]) {
@@ -108,4 +107,68 @@ bool ZString::operator>=(ZString obj) {
 
 bool ZString::operator!=(ZString obj) {
     return !((*this) == obj);
+}
+
+// Uloha 3
+bool ZString::is_subset(char const *container) {
+    for (int i = 0; i < len; i++) {
+        bool found = false;
+        for (int j = 0; j < strlen(container); j++) {
+            if ((*this)[i] == container[j]) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool ZString::empty_intersection(char const *container) {
+    for (int i = 0; i < len; i++) {
+        for (int j = 0; j < strlen(container); j++) {
+            if ((*this)[i] == container[j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+bool ZString::isdigit() {
+    char const *allowed = "0123456789";
+    return is_subset(allowed) && len > 0;
+}
+
+bool ZString::isalnum() {
+    char const *allowed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return is_subset(allowed) && len > 0;
+}
+
+bool ZString::isalpha() {
+    char const *allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return is_subset(allowed) && len > 0;
+}
+
+bool ZString::islower() {
+    char const *forbidden = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return empty_intersection(forbidden) && len > 0;
+}
+
+bool ZString::isupper() {
+    char const *forbidden = "abcdefghijklmnopqrstuvwxyz";
+    return empty_intersection(forbidden) && len > 0;
+}
+
+bool ZString::isprintable() {
+    char const *allowed = "'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&\\'()*+,-./:;<=>?@[\\\\]^_`{|}~ \\t\\n\\r\\x0b\\x0c'";
+    return is_subset(allowed) && len > 0;
+}
+
+bool ZString::isspace() {
+    char const *allowed = " \\t\\n\\r\\x0b\\x0c";
+    return is_subset(allowed) && len > 0;
 }
