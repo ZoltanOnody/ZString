@@ -181,10 +181,14 @@ unsigned int ZString::index(ZString const obj) const {
 };
 
 unsigned int ZString::index(ZString const obj, unsigned int const start) const {
-    for (unsigned int i = start; i < len; i++) {
+    return index(obj, start, len);
+}
+
+unsigned int ZString::index(ZString const obj, unsigned int const start, unsigned int const end) const {
+    for (unsigned int i = start; i < end; i++) {
         bool found = true;
         for (unsigned int j = 0; j < obj.length(); j++) {
-            if (i + j >= len) {
+            if (i + j >= end) {
                 throw std::invalid_argument("Substring not found!");
             }
 

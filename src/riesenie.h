@@ -61,6 +61,8 @@ public:
 
     unsigned int index(ZString const obj, unsigned int const start) const;
 
+    unsigned int index(ZString const obj, unsigned int const start, unsigned int const end) const;
+
 };
 
 #endif

@@ -204,10 +204,23 @@ TEST(Test, Index) {
     ZString sub("Hi");
 
     ASSERT_EQ(s.index(sub), 0);
+    ASSERT_EQ(s.index(sub, 0), 0);
     ASSERT_EQ(s.index(sub, 1), 18);
 
     try {
         s.index(sub, 20);
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch (std::invalid_argument const &err) {
+        EXPECT_EQ(err.what(), std::string("Substring not found!"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+
+    ASSERT_EQ(s.index(sub, 0, 2), 0);
+    try {
+        s.index(sub, 0, 1);
         FAIL() << "Expected std::invalid_argument";
     }
     catch (std::invalid_argument const &err) {
