@@ -169,10 +169,6 @@ bool ZString::isspace() const {
 
 // Uloha 4
 
-unsigned int ZString::index(ZString const obj) const {
-    return index(obj, 0);
-};
-
 unsigned int ZString::index(ZString const obj, unsigned int const start) const {
     return index(obj, start, len);
 }
@@ -186,10 +182,6 @@ unsigned int ZString::index(ZString const obj, unsigned int const start, unsigne
 
     throw std::invalid_argument("Substring not found!");
 };
-
-unsigned int ZString::rindex(ZString const obj) const {
-    return rindex(obj, 0);
-}
 
 unsigned int ZString::rindex(ZString const obj, unsigned int const start) const {
     return rindex(obj, start, len);
@@ -210,5 +202,32 @@ void ZString::reverse() {
         char tmp = (*this)[i];
         (*this)[i] = (*this)[len - i - 1];
         (*this)[len - i - 1] = tmp;
+    }
+}
+
+
+int ZString::find(ZString const obj, unsigned int const start) const {
+    return find(obj, start, len);
+}
+
+int ZString::find(ZString const obj, unsigned int const start, unsigned int const end) const {
+    try {
+        return index(obj, start, end);
+    }
+    catch (std::invalid_argument const &err) {
+        return -1;
+    }
+}
+
+int ZString::rfind(ZString const obj, unsigned int const start) const {
+    return rfind(obj, start, len);
+}
+
+int ZString::rfind(ZString const obj, unsigned int const start, unsigned int const end) const {
+    try {
+        return rindex(obj, start, end);
+    }
+    catch (std::invalid_argument const &err) {
+        return -1;
     }
 }

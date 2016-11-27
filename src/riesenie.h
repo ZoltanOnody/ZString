@@ -82,17 +82,19 @@ public:
     bool isspace() const;
 
     // Uloha 4
-    unsigned int index(ZString const obj) const;
-
-    unsigned int index(ZString const obj, unsigned int const start) const;
-
+    unsigned int index(ZString const obj, unsigned int const start = 0) const;
     unsigned int index(ZString const obj, unsigned int const start, unsigned int const end) const;
 
-    unsigned int rindex(ZString const obj) const;
-
-    unsigned int rindex(ZString const obj, unsigned int const start) const;
-
+    unsigned int rindex(ZString const obj, unsigned int const start = 0) const;
     unsigned int rindex(ZString const obj, unsigned int const start, unsigned int const end) const;
+
+    int find(ZString const obj, unsigned int const start = 0) const;
+
+    int find(ZString const obj, unsigned int const start, unsigned int const end) const;
+
+    int rfind(ZString const obj, unsigned int const start = 0) const;
+
+    int rfind(ZString const obj, unsigned int const start, unsigned int const end) const;
 
     void reverse();
 

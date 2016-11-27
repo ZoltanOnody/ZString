@@ -271,3 +271,24 @@ TEST(Test, Reverse) {
     ASSERT_STREQ(s1.value(), "ydwoH");
 }
 
+
+TEST(Test, Find) {
+    ZString s("Hi, how do you do Hillary?");
+    ZString sub1("Hi");
+    ZString sub2("Trumptadada");
+
+    ASSERT_EQ(s.find(sub1), 0);
+    ASSERT_EQ(s.find(sub1, 0), 0);
+    ASSERT_EQ(s.find(sub1, 1), 18);
+    ASSERT_EQ(s.find(sub2), -1);
+}
+
+TEST(Test, RFind) {
+    ZString s("Hi, how do you do Hillary?");
+    ZString sub1("Hi");
+    ZString sub2("Trumptadada");
+
+    ASSERT_EQ(s.rfind(sub1), 18);
+    ASSERT_EQ(s.rfind(sub1, 0, 10), 0);
+    ASSERT_EQ(s.rfind(sub2), -1);
+}
