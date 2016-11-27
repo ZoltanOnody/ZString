@@ -230,3 +230,36 @@ TEST(Test, Index) {
         FAIL() << "Expected std::invalid_argument";
     }
 }
+
+TEST(Test, RIndex) {
+    ZString s("Hi, how do you do Hillary?");
+    ZString sub("Hi");
+
+    ASSERT_EQ(s.rindex(sub), 18);
+    ASSERT_EQ(s.rindex(sub, 0), 18);
+    ASSERT_EQ(s.rindex(sub, 1), 18);
+    ASSERT_EQ(s.rindex(sub, 0, 10), 0);
+
+    try {
+        s.rindex(sub, 1, 10);
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch (std::invalid_argument const &err) {
+        EXPECT_EQ(err.what(), std::string("Substring not found!"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+
+    ASSERT_EQ(s.rindex(sub, 0, 2), 0);
+    try {
+        s.rindex(sub, 0, 1);
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch (std::invalid_argument const &err) {
+        EXPECT_EQ(err.what(), std::string("Substring not found!"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+}

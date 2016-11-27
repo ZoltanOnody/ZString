@@ -14,13 +14,6 @@ ZString::ZString(char const *data) {
     strcpy(this->data, data);
 }
 
-char ZString::operator[](int const i) const {
-    if (i >= len) {
-        throw std::out_of_range("Index out of range!");
-    }
-    return data[i];
-}
-
 size_t ZString::length() const {
 	return len;
 }
@@ -186,21 +179,28 @@ unsigned int ZString::index(ZString const obj, unsigned int const start) const {
 
 unsigned int ZString::index(ZString const obj, unsigned int const start, unsigned int const end) const {
     for (unsigned int i = start; i < end; i++) {
-        bool found = true;
-        for (unsigned int j = 0; j < obj.length(); j++) {
-            if (i + j >= end) {
-                throw std::invalid_argument("Substring not found!");
-            }
-
-            if ((*this)[i + j] != obj[j]) {
-                found = false;
-                break;
-            }
-        }
-        if (found) {
+        if (check_substring(obj, i, end)) {
             return i;
         }
     }
 
     throw std::invalid_argument("Substring not found!");
 };
+
+unsigned int ZString::rindex(ZString const obj) const {
+    return rindex(obj, 0);
+}
+
+unsigned int ZString::rindex(ZString const obj, unsigned int const start) const {
+    return rindex(obj, start, len);
+}
+
+unsigned int ZString::rindex(ZString const obj, unsigned int const start, unsigned int const end) const {
+    for (unsigned int i = end - 1; i >= start; i--) {
+        if (check_substring(obj, i, end)) {
+            return i;
+        }
+    }
+
+    throw std::invalid_argument("Substring not found!");
+}

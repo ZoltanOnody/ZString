@@ -11,12 +11,37 @@ class ZString {
 
     bool empty_intersection(char const *container) const;
 
+    bool check_substring(ZString const obj, unsigned int const i, unsigned const end) const {
+        for (unsigned int j = 0; j < obj.length(); j++) {
+            if (i + j >= end) {
+                throw std::invalid_argument("Substring not found!");
+            }
+
+            if ((*this)[i + j] != obj[j]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 public:
     ZString() : ZString("") {};
 
     ZString(char const *data);
 
-    char operator[](int const i) const;
+    char operator[](int const index) const {
+        if (index >= len) {
+            throw std::out_of_range("Index out of range!");
+        }
+        return data[index];
+    }
+
+    char &operator[](int const index) {
+        if (index >= len) {
+            throw std::out_of_range("Index out of range!");
+        }
+        return data[index];
+    }
 
     ZString operator+(ZString const obj) const;
 
@@ -62,6 +87,12 @@ public:
     unsigned int index(ZString const obj, unsigned int const start) const;
 
     unsigned int index(ZString const obj, unsigned int const start, unsigned int const end) const;
+
+    unsigned int rindex(ZString const obj) const;
+
+    unsigned int rindex(ZString const obj, unsigned int const start) const;
+
+    unsigned int rindex(ZString const obj, unsigned int const start, unsigned int const end) const;
 
 };
 
