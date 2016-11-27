@@ -75,3 +75,65 @@ TEST_F(Test, MultiplyZStrings) {
     s *= 2;
     ASSERT_STREQ(s.value(), "ABAB");
 }
+
+TEST_F(Test, LessZString) {
+    ZString s1("AB");
+    ZString s2("AC");
+    ZString s3("ABC");
+
+    ASSERT_TRUE(s1 < s2);
+    ASSERT_TRUE(s1 < s3);
+
+    ASSERT_FALSE(s1 < s1);
+    ASSERT_FALSE(s2 < s3);
+    ASSERT_FALSE(s3 < s1);
+}
+
+TEST_F(Test, GreaterZString) {
+    ZString s1("AB");
+    ZString s2("AC");
+    ZString s3("ABC");
+
+    ASSERT_TRUE(s2 > s1);
+    ASSERT_TRUE(s3 > s1);
+
+    ASSERT_FALSE(s1 > s1);
+    ASSERT_FALSE(s3 > s2);
+    ASSERT_FALSE(s1 > s3);
+}
+
+TEST_F(Test, EqualZString) {
+    ZString s1("AB");
+    ZString s2("AC");
+
+    ASSERT_TRUE(s1 == s1);
+    ASSERT_FALSE(s1 == s2);
+}
+
+TEST_F(Test, LessOrEqualZString) {
+    ZString s1("AB");
+    ZString s2("AC");
+
+    ASSERT_TRUE(s1 <= s1);
+    ASSERT_TRUE(s1 <= s2);
+
+    ASSERT_FALSE(s2 <= s1);
+}
+
+TEST_F(Test, GreaterOrEqualZString) {
+    ZString s1("AB");
+    ZString s2("AC");
+
+    ASSERT_TRUE(s1 >= s1);
+    ASSERT_TRUE(s2 >= s1);
+
+    ASSERT_FALSE(s1 >= s2);
+}
+
+TEST_F(Test, NotEqualZString) {
+    ZString s1("AB");
+    ZString s2("AC");
+
+    ASSERT_TRUE(s1 != s2);
+    ASSERT_FALSE(s1 != s1);
+}

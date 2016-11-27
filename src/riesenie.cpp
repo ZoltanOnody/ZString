@@ -64,8 +64,48 @@ ZString ZString::operator*(int mul) {
     return ans;
 }
 
-
 void ZString::operator*=(int mul) {
     ZString new_obj = *this * mul;
     *this = new_obj;
+}
+
+
+bool ZString::operator<(ZString obj) {
+    for (int i = 0; i < min(len, obj.length()); i++) {
+        if ((*this)[i] < obj[i]) {
+            return true;
+        } else if ((*this)[i] > obj[i]) {
+            return false;
+        }
+    }
+
+    return len < obj.length();
+}
+
+bool ZString::operator>(ZString obj) {
+    for (int i = 0; i < min(len, obj.length()); i++) {
+        if ((*this)[i] > obj[i]) {
+            return true;
+        } else if ((*this)[i] < obj[i]) {
+            return false;
+        }
+    }
+
+    return len > obj.length();
+}
+
+bool ZString::operator==(ZString obj) {
+    return !((*this) < obj || (*this) > obj);
+}
+
+bool ZString::operator<=(ZString obj) {
+    return (*this) < obj || (*this) == obj;
+}
+
+bool ZString::operator>=(ZString obj) {
+    return (*this) > obj || (*this) == obj;
+}
+
+bool ZString::operator!=(ZString obj) {
+    return !((*this) == obj);
 }

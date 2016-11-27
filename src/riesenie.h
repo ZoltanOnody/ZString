@@ -21,6 +21,18 @@ public:
 
     void operator*=(int mul);
 
+    bool operator<(ZString obj);
+
+    bool operator>(ZString obj);
+
+    bool operator==(ZString obj);
+
+    bool operator<=(ZString obj);
+
+    bool operator>=(ZString obj);
+
+    bool operator!=(ZString obj);
+
     size_t length();
 	char *value();
 };
