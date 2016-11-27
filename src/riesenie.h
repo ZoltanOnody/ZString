@@ -56,6 +56,11 @@ public:
 
     bool isspace() const;
 
+    // Uloha 4
+    unsigned int index(ZString const obj) const;
+
+    unsigned int index(ZString const obj, unsigned int const start) const;
+
 };
 
 #endif

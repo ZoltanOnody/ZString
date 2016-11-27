@@ -173,3 +173,30 @@ bool ZString::isspace() const {
     char const *allowed = " \\t\\n\\r\\x0b\\x0c";
     return is_subset(allowed) && len > 0;
 }
+
+// Uloha 4
+
+unsigned int ZString::index(ZString const obj) const {
+    return index(obj, 0);
+};
+
+unsigned int ZString::index(ZString const obj, unsigned int const start) const {
+    for (unsigned int i = start; i < len; i++) {
+        bool found = true;
+        for (unsigned int j = 0; j < obj.length(); j++) {
+            if (i + j >= len) {
+                throw std::invalid_argument("Substring not found!");
+            }
+
+            if ((*this)[i + j] != obj[j]) {
+                found = false;
+                break;
+            }
+        }
+        if (found) {
+            return i;
+        }
+    }
+
+    throw std::invalid_argument("Substring not found!");
+};

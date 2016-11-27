@@ -197,3 +197,23 @@ TEST(Test, IsSpace) {
     ASSERT_TRUE(s1.isspace());
     ASSERT_FALSE(s2.isspace());
 }
+
+// Uloha 4
+TEST(Test, Index) {
+    ZString s("Hi, how do you do Hillary?");
+    ZString sub("Hi");
+
+    ASSERT_EQ(s.index(sub), 0);
+    ASSERT_EQ(s.index(sub, 1), 18);
+
+    try {
+        s.index(sub, 20);
+        FAIL() << "Expected std::invalid_argument";
+    }
+    catch (std::invalid_argument const &err) {
+        EXPECT_EQ(err.what(), std::string("Substring not found!"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::invalid_argument";
+    }
+}

@@ -19,7 +19,6 @@ The class will be created in the methodology of TDD and will contain the methods
     '__lt__',
     '__mul__', # str1.mul(3)
     '__ne__',
-    '__new__',
     '__str__',
     'capitalize',
     'center',
@@ -65,7 +64,6 @@ The class will be created in the methodology of TDD and will contain the methods
 [
     '__contains__',     # str1.contains(str2)
     '__iter__',
-    '__new__',
     '__str__',
     'capitalize',
     'center',
