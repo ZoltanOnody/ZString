@@ -262,6 +262,12 @@ TEST(Test, RIndex) {
     catch (...) {
         FAIL() << "Expected std::invalid_argument";
     }
+
+    // regression test
+    ZString s2("Hi, how do you do Hillary? hmmmmm....");
+    ZString sub2("...");
+    ASSERT_EQ(s2.rindex(sub2), 34);
+
 }
 
 TEST(Test, Reverse) {
@@ -293,7 +299,6 @@ TEST(Test, RFind) {
     ASSERT_EQ(s.rfind(sub2), -1);
 }
 
-
 TEST(Test, Count) {
     ZString s("Hi, how do you do Hillary? hmmmmm...");
     ZString sub1("Hi");
@@ -305,4 +310,39 @@ TEST(Test, Count) {
     ASSERT_EQ(s.count(sub1, 0, 10), 1);
     ASSERT_EQ(s.count(sub2), 0);
     ASSERT_EQ(s.count(sub3), 2);
+}
+
+TEST(Test, StartsWith) {
+    ZString s("Hi, how do you do Hillary? hmmmmm...");
+    ZString sub1("Hi");
+    ZString sub2("Him");
+    ZString sub3("Hillary");
+    ZString sub4("hmmmm");
+
+    ASSERT_TRUE(s.startswith(sub1));
+    ASSERT_FALSE(s.startswith(sub1, 1));
+
+    ASSERT_FALSE(s.startswith(sub2));
+
+    ASSERT_FALSE(s.startswith(sub3));
+    ASSERT_TRUE(s.startswith(sub3, 18));
+
+    ASSERT_TRUE(s.startswith(sub4, 27));
+    ASSERT_FALSE(s.startswith(sub4, 27, 30));
+}
+
+TEST(Test, EndsWith) {
+    ZString s("Hi, how do you do Hillary? hmmmmm...");
+    ZString sub1("...");
+    ZString sub2("Hillary");
+    ZString sub3("hmmmm");
+
+    ASSERT_TRUE(s.endswith(sub1));
+    ASSERT_TRUE(s.endswith(sub1, 1));
+    ASSERT_FALSE(s.endswith(sub1, 1, 10));
+
+    ASSERT_TRUE(s.endswith(sub2, 0, 25));
+
+    ASSERT_TRUE(s.endswith(sub3, 0, 32));
+    ASSERT_FALSE(s.endswith(sub3, 30, 32));
 }

@@ -188,7 +188,7 @@ unsigned int ZString::rindex(ZString const obj, unsigned int const start) const 
 }
 
 unsigned int ZString::rindex(ZString const obj, unsigned int const start, unsigned int const end) const {
-    for (unsigned int i = end - 1; i >= start; i--) {
+    for (int i = end - 1; i >= (int) start; i--) {
         if (check_substring(obj, i, end)) {
             return i;
         }
@@ -250,4 +250,22 @@ int ZString::count(ZString const obj, unsigned int const start, unsigned int con
     }
 
     return count;
+}
+
+bool ZString::startswith(ZString const obj, unsigned int const start) const {
+    return startswith(obj, start, len);
+}
+
+bool ZString::startswith(ZString const obj, unsigned int const start, unsigned int const end) const {
+    int index = find(obj, start, end);
+    return index == start;
+}
+
+bool ZString::endswith(ZString const obj, unsigned int const start) const {
+    return endswith(obj, start, len);
+}
+
+bool ZString::endswith(ZString const obj, unsigned int const start, unsigned int const end) const {
+    int index = rfind(obj, start, end);
+    return index + obj.length() == end;
 }

@@ -13,11 +13,7 @@ class ZString {
 
     bool check_substring(ZString const obj, unsigned int const i, unsigned const end) const {
         for (unsigned int j = 0; j < obj.length(); j++) {
-            if (i + j >= end) {
-                throw std::invalid_argument("Substring not found!");
-            }
-
-            if ((*this)[i + j] != obj[j]) {
+            if (i + j >= end || (*this)[i + j] != obj[j]) {
                 return false;
             }
         }
@@ -99,6 +95,14 @@ public:
     int count(ZString const obj, unsigned int const start = 0) const;
 
     int count(ZString const obj, unsigned int const start, unsigned int const end) const;
+
+    bool startswith(ZString const obj, unsigned int const start = 0) const;
+
+    bool startswith(ZString const obj, unsigned int const start, unsigned int const end) const;
+
+    bool endswith(ZString const obj, unsigned int const start = 0) const;
+
+    bool endswith(ZString const obj, unsigned int const start, unsigned int const end) const;
 
     void reverse();
 
