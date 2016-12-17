@@ -16,7 +16,7 @@ The class will be created in the methodology of TDD and will contain the methods
     '__le__',
     '__len__', # .lenght()
     '__lt__',
-    '__mul__', # str1.mul(3)
+    '__mul__',
     '__ne__',
     '__str__',
     'capitalize',
@@ -56,13 +56,13 @@ The class will be created in the methodology of TDD and will contain the methods
 - https://docs.python.org/3/library/stdtypes.html#str
 - https://github.com/google/googletest/blob/master/googletest/docs/Primer.md
 - http://stackoverflow.com/questions/33638433/setup-google-test-in-clion
+- http://stackoverflow.com/questions/476272/how-to-properly-overload-the-operator-for-an-ostream
+- http://stackoverflow.com/questions/8164567/how-to-make-my-custom-type-to-work-with-range-based-for-loops
 
 ## Todo
 
 ```
 [
-    '__iter__',
-    '__str__',
     'capitalize',
     'center',
     'ljust',

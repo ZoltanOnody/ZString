@@ -59,6 +59,14 @@ public:
 
     bool operator!=(ZString const obj) const;
 
+    friend std::ostream& operator<< (std::ostream& stream, const ZString& s) {
+        stream << s.value();
+        return stream;
+    }
+
+    char *begin() const {return data;}
+    char *end() const {return &data[length()-1];}
+
     size_t length() const;
 
     char *value() const;

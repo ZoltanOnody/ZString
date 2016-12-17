@@ -7,6 +7,7 @@
 
 #include "gtest/gtest.h"
 #include "../src/riesenie.h"
+#include <sstream>
 
 using namespace ::testing;
 
@@ -360,4 +361,22 @@ TEST(Test, Lower) {
 TEST(Test, Upper) {
     ZString s("Hi, how Do you Do?!");
     ASSERT_STREQ(s.upper().value(), "HI, HOW DO YOU DO?!");
+}
+
+TEST(Test, OutputReprezentation) {
+    ZString s("C++14 is the best!");
+
+    std::stringstream out;
+    out << s;
+
+    ASSERT_STREQ(out.str().c_str(), "C++14 is the best!");
+}
+
+TEST(Test, Iterable) {
+    ZString s("1234");
+
+    int index=0;
+    for(char c: s){
+        ASSERT_EQ(c, s[index++]);
+    }
 }
