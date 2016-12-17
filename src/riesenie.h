@@ -106,6 +106,9 @@ public:
 
     void reverse();
 
+    ZString lower() const;
+    ZString upper() const;
+
 };
 
 #endif

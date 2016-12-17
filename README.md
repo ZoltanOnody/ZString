@@ -65,19 +65,15 @@ The class will be created in the methodology of TDD and will contain the methods
     '__str__',
     'capitalize',
     'center',
-    'endswith',
     'ljust',
-    'lower',
     'lstrip',
     'replace',
     'rsplit',
     'rstrip',
     'split',
-    'startswith',
     'strip',
     'swapcase',
     'title',
-    'upper',
     'zfill'
 ]
 ```

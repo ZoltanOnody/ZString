@@ -1,6 +1,10 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
 
+// todo remove
+#include <iostream>
+
+
 #include "gtest/gtest.h"
 #include "../src/riesenie.h"
 
@@ -345,4 +349,15 @@ TEST(Test, EndsWith) {
 
     ASSERT_TRUE(s.endswith(sub3, 0, 32));
     ASSERT_FALSE(s.endswith(sub3, 30, 32));
+}
+
+
+TEST(Test, Lower) {
+    ZString s("Hi, how Do you Do?!");
+    ASSERT_STREQ(s.lower().value(), "hi, how do you do?!");
+}
+
+TEST(Test, Upper) {
+    ZString s("Hi, how Do you Do?!");
+    ASSERT_STREQ(s.upper().value(), "HI, HOW DO YOU DO?!");
 }

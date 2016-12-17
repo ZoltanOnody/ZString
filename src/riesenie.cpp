@@ -269,3 +269,25 @@ bool ZString::endswith(ZString const obj, unsigned int const start, unsigned int
     int index = rfind(obj, start, end);
     return index + obj.length() == end;
 }
+
+ZString ZString::lower() const {
+    ZString tmp(*this);
+
+    for(unsigned int i=0; i < tmp.length(); i++){
+        if('A' <= tmp[i] && tmp[i] <= 'Z'){
+            tmp[i] += 32;
+        }
+    }
+    return tmp;
+}
+
+ZString ZString::upper() const {
+    ZString tmp(*this);
+
+    for(unsigned int i=0; i < tmp.length(); i++){
+        if('a' <= tmp[i] && tmp[i] <= 'z'){
+            tmp[i] -= 32;
+        }
+    }
+    return tmp;
+}
