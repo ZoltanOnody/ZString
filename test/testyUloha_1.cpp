@@ -380,3 +380,59 @@ TEST(Test, Iterable) {
         ASSERT_EQ(c, s[index++]);
     }
 }
+
+TEST(Test, ReplaceOne) {
+    ZString s("The President of US is Obama!");
+    ZString what("Obama");
+    ZString by("Trump");
+    s.replace(what, by);
+    ASSERT_STREQ(s.value(), "The President of US is Trump!");
+}
+
+TEST(Test, ReplaceNone) {
+    ZString s("Programming");
+    ZString what("gaming");
+    ZString by("");
+    s.replace(what, by);
+    ASSERT_STREQ(s.value(), "Programming");
+}
+
+TEST(Test, ReplaceMore) {
+    ZString s("aabbcc");
+    ZString what("ab");
+    ZString by("");
+    s.replace(what, by);
+    ASSERT_STREQ(s.value(), "abcc");
+}
+
+TEST(Test, ReplaceShorter) {
+    ZString s("A!B!C!");
+    ZString what("A!");
+    ZString by("a");
+    s.replace(what, by);
+    ASSERT_STREQ(s.value(), "aB!C!");
+}
+
+TEST(Test, ReplaceLonger) {
+    ZString s("abc");
+    ZString what("a");
+    ZString by("A!");
+    s.replace(what, by);
+    ASSERT_STREQ(s.value(), "A!bc");
+}
+
+TEST(Test, ReplaceRegressionTest) {
+    ZString s("a b a b a b");
+    ZString what("a");
+    ZString by("#");
+    s.replace(what, by);
+    ASSERT_STREQ(s.value(), "# b # b # b");
+}
+
+TEST(Test, ReplaceFirstTree) {
+    ZString s("a b a b a b a b a");
+    ZString what("a");
+    ZString by("#");
+    s.replace(what, by, 3);
+    ASSERT_STREQ(s.value(), "# b # b # b a b a");
+}

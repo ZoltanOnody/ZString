@@ -67,7 +67,6 @@ The class will be created in the methodology of TDD and will contain the methods
     'center',
     'ljust',
     'lstrip',
-    'replace',
     'rsplit',
     'rstrip',
     'split',

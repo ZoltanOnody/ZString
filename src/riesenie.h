@@ -117,6 +117,8 @@ public:
     ZString lower() const;
     ZString upper() const;
 
+    void replace(ZString const what, ZString const by, int count=-1);
+
 };
 
 #endif

@@ -291,3 +291,36 @@ ZString ZString::upper() const {
     }
     return tmp;
 }
+
+void ZString::replace(ZString const what, ZString const by, int count) {
+    int tmp_count = this->count(what);
+
+    if (count < 0 || count > tmp_count){
+        count = tmp_count;
+    }
+
+    size_t new_size = length()-count*what.length()+count*by.length(); // length of the new string
+    char *tmp = new char[new_size+1];
+
+    int tmp_index = 0;
+    int last_position = 0;
+    for(int i=0; i < count; i++){
+        int start_position = this->find(what, last_position);
+
+        for(int j=last_position; j < start_position; j++) {
+            tmp[tmp_index++] = data[j];
+        }
+        for(int j=0; j < by.length(); j++){
+            tmp[tmp_index++] = by.value()[j];
+        }
+
+        last_position = start_position + what.length();
+    }
+
+    for(int j=last_position; j < length(); j++){
+        tmp[tmp_index++] = data[j];
+    }
+    tmp[new_size] = '\0';
+
+    data = tmp;
+}
