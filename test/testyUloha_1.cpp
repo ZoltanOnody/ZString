@@ -436,3 +436,10 @@ TEST(Test, ReplaceFirstTree) {
     s.replace(what, by, 3);
     ASSERT_STREQ(s.value(), "# b # b # b a b a");
 }
+
+
+TEST(Test, Zfill) {
+    ZString s("1234");
+    ASSERT_STREQ(s.zfill(1).value(), "1234");
+    ASSERT_STREQ(s.zfill(6).value(), "001234");
+}

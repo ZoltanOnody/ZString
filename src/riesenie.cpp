@@ -324,3 +324,22 @@ void ZString::replace(ZString const what, ZString const by, int count) {
 
     data = tmp;
 }
+
+ZString ZString::zfill(int len) const {
+    if(len <= this->length()){
+        ZString tmp(*this);
+        return tmp;
+    }
+    char *tmp = new char[len+1];
+    for(int i=0; i < len-this->length(); i++){
+        tmp[i] = '0';
+    }
+    for(int i=0; i < this->length(); i++){
+        tmp[i+len-this->length()] = data[i];
+    }
+
+    tmp[len] = '\0';
+
+    ZString s(tmp);
+    return s;
+}

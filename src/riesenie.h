@@ -119,6 +119,8 @@ public:
 
     void replace(ZString const what, ZString const by, int count=-1);
 
+    ZString zfill(int len) const;
+
 };
 
 #endif

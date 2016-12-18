@@ -73,6 +73,5 @@ The class will be created in the methodology of TDD and will contain the methods
     'strip',
     'swapcase',
     'title',
-    'zfill'
 ]
 ```
