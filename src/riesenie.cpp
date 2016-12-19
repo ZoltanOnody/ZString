@@ -343,3 +343,18 @@ ZString ZString::zfill(int len) const {
     ZString s(tmp);
     return s;
 }
+
+ZString ZString::swapcase() const {
+    ZString tmp(*this);
+
+    for(char &c: tmp){
+        if('a' <= c && c <= 'z'){
+            c -= 32;
+        } else if ('A' <= c && c <= 'Z'){
+            c += 32;
+        }
+    }
+
+    return tmp;
+}
+

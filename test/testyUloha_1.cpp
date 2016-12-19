@@ -443,3 +443,8 @@ TEST(Test, Zfill) {
     ASSERT_STREQ(s.zfill(1).value(), "1234");
     ASSERT_STREQ(s.zfill(6).value(), "001234");
 }
+
+TEST(Test, Swapcase) {
+    ZString s("Swap ... My Case!");
+    ASSERT_STREQ(s.swapcase().value(), "sWAP ... mY cASE!");
+}
