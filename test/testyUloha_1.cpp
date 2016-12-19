@@ -448,3 +448,10 @@ TEST(Test, Swapcase) {
     ZString s("Swap ... My Case!");
     ASSERT_STREQ(s.swapcase().value(), "sWAP ... mY cASE!");
 }
+
+TEST(Test, Center){
+    ZString s("Hello");
+    ASSERT_STREQ(s.center(2).value(), "Hello");
+    ASSERT_STREQ(s.center(10).value(), "  Hello   ");
+    ASSERT_STREQ(s.center(9, '#').value(), "##Hello##");
+}

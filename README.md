@@ -64,14 +64,12 @@ The class will be created in the methodology of TDD and will contain the methods
 ```
 [
     'capitalize',
-    'center',
     'ljust',
     'lstrip',
     'rsplit',
     'rstrip',
     'split',
     'strip',
-    'swapcase',
     'title',
 ]
 ```

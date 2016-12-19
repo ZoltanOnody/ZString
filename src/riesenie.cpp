@@ -358,3 +358,27 @@ ZString ZString::swapcase() const {
     return tmp;
 }
 
+
+ZString ZString::center(int len, char fill) const {
+    if(this->length() > len){
+        len = this->length();
+    }
+
+    char *tmp_data = new char [len];
+    int last_index = 0;
+
+    for(int i=0; i < (len-this->length())/2; i++){
+        tmp_data[last_index++] = fill;
+    }
+
+    for(int i=0; i < this->length(); i++){
+        tmp_data[last_index++] = data[i];
+    }
+
+    for(int i=0; i < (len-this->length()+1)/2; i++){
+        tmp_data[last_index++] = fill;
+    }
+
+    ZString tmp(tmp_data);
+    return tmp;
+}
