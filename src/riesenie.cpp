@@ -382,3 +382,23 @@ ZString ZString::center(int len, char fill) const {
     ZString tmp(tmp_data);
     return tmp;
 }
+
+ZString ZString::ljust(int len, char fill) const {
+    if(this->length() > len){
+        len = this->length();
+    }
+
+    char *tmp_data = new char [len];
+    int last_index = 0;
+
+    for(int i=0; i < (len-this->length()); i++){
+        tmp_data[last_index++] = fill;
+    }
+
+    for(int i=0; i < this->length(); i++){
+        tmp_data[last_index++] = data[i];
+    }
+
+    ZString tmp(tmp_data);
+    return tmp;
+}

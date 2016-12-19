@@ -455,3 +455,10 @@ TEST(Test, Center){
     ASSERT_STREQ(s.center(10).value(), "  Hello   ");
     ASSERT_STREQ(s.center(9, '#').value(), "##Hello##");
 }
+
+TEST(Test, LJust){
+    ZString s("Hello");
+    ASSERT_STREQ(s.ljust(2).value(), "Hello");
+    ASSERT_STREQ(s.ljust(10).value(), "     Hello");
+    ASSERT_STREQ(s.ljust(9, '#').value(), "####Hello");
+}

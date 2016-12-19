@@ -64,7 +64,6 @@ The class will be created in the methodology of TDD and will contain the methods
 ```
 [
     'capitalize',
-    'ljust',
     'lstrip',
     'rsplit',
     'rstrip',

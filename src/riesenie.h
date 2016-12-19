@@ -122,6 +122,7 @@ public:
     ZString zfill(int len) const;
     ZString swapcase() const;
     ZString center(int len, char fill=' ') const;
+    ZString ljust(int len, char fill=' ') const;
 
 };
 
