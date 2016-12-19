@@ -66,7 +66,7 @@ public:
     }
 
     char *begin() const {return data;}
-    char *end() const {return &data[length()-1];}
+    char *end() const {return &data[length()];}
 
     size_t length() const;
 
@@ -125,6 +125,7 @@ public:
     ZString center(int len, char fill=' ') const;
     ZString ljust(int len, char fill=' ') const;
     ZString title() const;
+    ZString capitalize() const;
 
 };
 

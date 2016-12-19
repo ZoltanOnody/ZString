@@ -379,6 +379,8 @@ TEST(Test, Iterable) {
     for(char c: s){
         ASSERT_EQ(c, s[index++]);
     }
+
+    ASSERT_EQ(index, 4);  // regression test
 }
 
 TEST(Test, ReplaceOne) {
@@ -466,4 +468,15 @@ TEST(Test, LJust){
 TEST(Test, Title){
     ZString s("how do_you_DO?!");
     ASSERT_STREQ(s.title().value(), "How Do_You_Do?!");
+}
+
+TEST(Test, Capitalize){
+    ZString s1("how do_you_DO?!");
+    ASSERT_STREQ(s1.capitalize().value(), "How do_you_do?!");
+
+    ZString s2("Wow");
+    ASSERT_STREQ(s2.capitalize().value(), "Wow");
+
+    ZString s3("WoW");
+    ASSERT_STREQ(s3.capitalize().value(), "Wow");
 }

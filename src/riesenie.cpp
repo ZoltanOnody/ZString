@@ -434,3 +434,19 @@ ZString ZString::title() const {
     ZString ztmp(tmp);
     return ztmp;
 }
+
+ZString ZString::capitalize() const {
+    ZString tmp(*this);
+
+    for(char &c: tmp){
+        if('A' <= c && c <= 'Z'){
+            c += 32;
+        }
+    }
+
+    if('a' <= tmp[0] && tmp[0] <= 'z'){
+        tmp[0] -= 32;
+    }
+
+    return tmp;
+}
