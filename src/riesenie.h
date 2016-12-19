@@ -1,4 +1,5 @@
 #include <stdexcept>
+#include <vector>
 
 #if !defined( _RIESENIE_H_ )
 #define _RIESENIE_H_
@@ -127,6 +128,34 @@ public:
     ZString title() const;
     ZString capitalize() const;
 
+    ZString lstrip(char const c=' ') const {
+        char data[] = {c};
+        return this->lstrip(data);
+    }
+    ZString lstrip(char const data[]) const;
+
+    ZString rstrip(char const c=' ') const{
+        char data[] = {c};
+        return this->rstrip(data);
+    }
+    ZString rstrip(char const data[]) const;
+    ZString strip(char const c=' ') const {
+        char data[] = {c};
+        return this->strip(data);
+    }
+    ZString strip(char const data[]) const;
+
+    std::vector <ZString> split() const {
+        ZString s(" ");
+        return this->split(s);
+    }
+    std::vector <ZString> split(ZString const delimiter, int const limit = -1) const;
+
+    std::vector <ZString> rsplit() const {
+        ZString s(" ");
+        return this->rsplit(s);
+    }
+    std::vector <ZString> rsplit(ZString const delimiter, int const limit = -1) const;
 };
 
 #endif

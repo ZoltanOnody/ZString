@@ -450,3 +450,22 @@ ZString ZString::capitalize() const {
 
     return tmp;
 }
+
+ZString ZString::lstrip(char const data[]) const {
+    return *this;
+}
+ZString ZString::rstrip(char const data[]) const {
+    return *this;
+}
+ZString ZString::strip(char const data[]) const {
+    return *this;
+}
+
+std::vector <ZString> ZString::split(ZString const delimiter, int const limit) const {
+    std::vector <ZString> data;
+    return data;
+}
+std::vector <ZString> ZString::rsplit(ZString const delimiter, int const limit) const {
+    std::vector <ZString> data;
+    return data;
+}

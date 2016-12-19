@@ -480,3 +480,85 @@ TEST(Test, Capitalize){
     ZString s3("WoW");
     ASSERT_STREQ(s3.capitalize().value(), "Wow");
 }
+
+TEST(Test, Lstrip){
+    ZString s1(" howdy ");
+    ASSERT_STREQ(s1.lstrip().value(), "howdy ");
+
+    ZString s2("howdyh");
+    ASSERT_STREQ(s1.lstrip('h').value(), "owdyh");
+
+    char chars[] = {'h', 'o'};
+    ZString s3("hohohaha");
+    ASSERT_STREQ(s3.lstrip(chars).value(), "aha");
+}
+
+TEST(Test, Rstrip){
+    ZString s1(" howdy ");
+    ASSERT_STREQ(s1.rstrip().value(), " howdy");
+
+    ZString s2("howdyh");
+    ASSERT_STREQ(s1.rstrip('h').value(), "howdy");
+
+    char chars[] = {'h', 'o'};
+    ZString s3("hahahoho");
+    ASSERT_STREQ(s3.rstrip(chars).value(), "haha");
+}
+
+TEST(Test, Strip){
+    ZString s1(" howdy ");
+    ASSERT_STREQ(s1.strip().value(), "howdy");
+
+    ZString s2("howdyh");
+    ASSERT_STREQ(s1.strip('h').value(), "owdy");
+
+    char chars[] = {'h', 'o'};
+    ZString s3("hahahoho");
+    ASSERT_STREQ(s3.strip(chars).value(), "a");
+}
+
+TEST(Test, Split){
+    ZString s1("How do you do?");
+    std::vector <ZString> data1 = s1.split();
+    ASSERT_EQ(data1.size(), 4);
+    ASSERT_STREQ(data1[0].value(), "How");
+    ASSERT_STREQ(data1[1].value(), "do");
+    ASSERT_STREQ(data1[2].value(), "you");
+    ASSERT_STREQ(data1[3].value(), "do?");
+
+    ZString s2("AaaBaaC");
+    std::vector <ZString> data2 = s2.split(ZString("aa"));
+    ASSERT_EQ(data2.size(), 3);
+    ASSERT_STREQ(data2[0].value(), "A");
+    ASSERT_STREQ(data2[1].value(), "B");
+    ASSERT_STREQ(data2[2].value(), "C");
+
+    ZString s3("AaaBaaC");
+    std::vector <ZString> data3 = s3.split(ZString("aa"), 1);
+    ASSERT_EQ(data3.size(), 2);
+    ASSERT_STREQ(data3[0].value(), "A");
+    ASSERT_STREQ(data3[1].value(), "BaaC");
+}
+
+TEST(Test, Rsplit){
+    ZString s1("How do you do?");
+    std::vector <ZString> data1 = s1.rsplit();
+    ASSERT_EQ(data1.size(), 4);
+    ASSERT_STREQ(data1[0].value(), "How");
+    ASSERT_STREQ(data1[1].value(), "do");
+    ASSERT_STREQ(data1[2].value(), "you");
+    ASSERT_STREQ(data1[3].value(), "do?");
+
+    ZString s2("AaaBaaC");
+    std::vector <ZString> data2 = s2.rsplit(ZString("aa"));
+    ASSERT_EQ(data2.size(), 3);
+    ASSERT_STREQ(data2[0].value(), "A");
+    ASSERT_STREQ(data2[1].value(), "B");
+    ASSERT_STREQ(data2[2].value(), "C");
+
+    ZString s3("AaaBaaC");
+    std::vector <ZString> data3 = s3.rsplit(ZString("aa"), 1);
+    ASSERT_EQ(data3.size(), 2);
+    ASSERT_STREQ(data3[0].value(), "AaaB");
+    ASSERT_STREQ(data3[1].value(), "C");
+}
