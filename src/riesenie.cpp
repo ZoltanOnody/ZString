@@ -14,6 +14,16 @@ ZString::ZString(char const *data) {
     strcpy(this->data, data);
 }
 
+ZString::ZString(char const c) {
+
+    size_t len = 1;
+    this->len = len;
+    this->data = new char[len+1];
+
+    data[0] = c;
+    data[1] = '\0';
+}
+
 size_t ZString::length() const {
 	return len;
 }
@@ -401,4 +411,26 @@ ZString ZString::ljust(int len, char fill) const {
 
     ZString tmp(tmp_data);
     return tmp;
+}
+
+ZString ZString::title() const {
+    char *tmp = new char [this->length()+1];
+
+    for (int i=0; i < this->length(); i++) {
+        tmp[i] = data[i];
+        if (i == 0 || !ZString(tmp[i-1]).isalpha()) {
+            if('a' <= tmp[i] && tmp[i] <= 'z'){
+                tmp[i] -= 32;
+            }
+        } else {
+            if('A' <= tmp[i] && tmp[i] <= 'Z'){
+                tmp[i] += 32;
+            }
+        }
+    }
+
+    tmp[this->length()] = '\0';
+
+    ZString ztmp(tmp);
+    return ztmp;
 }

@@ -23,6 +23,7 @@ class ZString {
 public:
     ZString() : ZString("") {};
 
+    ZString(char const data);
     ZString(char const *data);
 
     char operator[](int const index) const {
@@ -123,6 +124,7 @@ public:
     ZString swapcase() const;
     ZString center(int len, char fill=' ') const;
     ZString ljust(int len, char fill=' ') const;
+    ZString title() const;
 
 };
 

@@ -462,3 +462,8 @@ TEST(Test, LJust){
     ASSERT_STREQ(s.ljust(10).value(), "     Hello");
     ASSERT_STREQ(s.ljust(9, '#').value(), "####Hello");
 }
+
+TEST(Test, Title){
+    ZString s("how do_you_DO?!");
+    ASSERT_STREQ(s.title().value(), "How Do_You_Do?!");
+}
