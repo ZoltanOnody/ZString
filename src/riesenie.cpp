@@ -1,14 +1,9 @@
 #include <iostream>
 #include <cstring>
-#include <sstream>
-#include <string>
 
 #include "riesenie.h"
 
-using namespace std;
 
-
-// Uloha 1.
 ZString::ZString(char const *data) {
     size_t len = strlen(data);
     this->len = len;
@@ -17,10 +12,8 @@ ZString::ZString(char const *data) {
 }
 
 ZString::ZString(char const c) {
-
-    size_t len = 1;
-    this->len = len;
-    this->data = new char[len+1];
+    this->len = 1;
+    this->data = new char[2];
 
     data[0] = c;
     data[1] = '\0';
@@ -75,7 +68,7 @@ void ZString::operator*=(int const mul) {
 }
 
 bool ZString::operator<(ZString const obj) const {
-    for (int i = 0; i < min(len, obj.length()); i++) {
+    for (int i = 0; i < std::min(len, obj.length()); i++) {
         if ((*this)[i] < obj[i]) {
             return true;
         } else if ((*this)[i] > obj[i]) {
@@ -87,7 +80,7 @@ bool ZString::operator<(ZString const obj) const {
 }
 
 bool ZString::operator>(ZString const obj) const {
-    for (int i = 0; i < min(len, obj.length()); i++) {
+    for (int i = 0; i < std::min(len, obj.length()); i++) {
         if ((*this)[i] > obj[i]) {
             return true;
         } else if ((*this)[i] < obj[i]) {
@@ -569,7 +562,6 @@ std::vector <ZString> ZString::rsplit(ZString const delimiter, int const limit) 
     for(ZString &s: tmp_data){
         s.reverse();
     }
-
 
     std::vector <ZString> data;
     for(int i=tmp_data.size()-1; i >= 0; i--){

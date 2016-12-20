@@ -203,7 +203,6 @@ TEST(Test, IsSpace) {
     ASSERT_FALSE(s2.isspace());
 }
 
-// Uloha 4
 TEST(Test, Index) {
     ZString s("Hi, how do you do Hillary?");
     ZString sub("Hi");
@@ -236,7 +235,7 @@ TEST(Test, Index) {
     }
 }
 
-TEST(Test, RIndex) {
+TEST(Test, RIndex1) {
     ZString s("Hi, how do you do Hillary?");
     ZString sub("Hi");
 
@@ -267,21 +266,19 @@ TEST(Test, RIndex) {
     catch (...) {
         FAIL() << "Expected std::invalid_argument";
     }
+}
 
-    // regression test
-    ZString s2("Hi, how do you do Hillary? hmmmmm....");
-    ZString sub2("...");
-    ASSERT_EQ(s2.rindex(sub2), 34);
-
+TEST(Test, RIndex2Regression) {
+    ZString s("Hi, how do you do Hillary? hmmmmm....");
+    ZString sub("...");
+    ASSERT_EQ(s.rindex(sub), 34);
 }
 
 TEST(Test, Reverse) {
     ZString s1("Howdy");
     s1.reverse();
-
     ASSERT_STREQ(s1.value(), "ydwoH");
 }
-
 
 TEST(Test, Find) {
     ZString s("Hi, how do you do Hillary?");
@@ -352,7 +349,6 @@ TEST(Test, EndsWith) {
     ASSERT_FALSE(s.endswith(sub3, 30, 32));
 }
 
-
 TEST(Test, Lower) {
     ZString s("Hi, how Do you Do?!");
     ASSERT_STREQ(s.lower().value(), "hi, how do you do?!");
@@ -385,60 +381,45 @@ TEST(Test, Iterable) {
 
 TEST(Test, ReplaceOne) {
     ZString s("The President of US is Obama!");
-    ZString what("Obama");
-    ZString by("Trump");
-    s.replace(what, by);
+    s.replace(ZString("Obama"), ZString("Trump"));
     ASSERT_STREQ(s.value(), "The President of US is Trump!");
 }
 
 TEST(Test, ReplaceNone) {
     ZString s("Programming");
-    ZString what("gaming");
-    ZString by("");
-    s.replace(what, by);
+    s.replace(ZString("gaming"), ZString(""));
     ASSERT_STREQ(s.value(), "Programming");
 }
 
 TEST(Test, ReplaceMore) {
     ZString s("aabbcc");
-    ZString what("ab");
-    ZString by("");
-    s.replace(what, by);
+    s.replace(ZString("ab"), ZString(""));
     ASSERT_STREQ(s.value(), "abcc");
 }
 
 TEST(Test, ReplaceShorter) {
     ZString s("A!B!C!");
-    ZString what("A!");
-    ZString by("a");
-    s.replace(what, by);
+    s.replace(ZString("A!"), ZString("a"));
     ASSERT_STREQ(s.value(), "aB!C!");
 }
 
 TEST(Test, ReplaceLonger) {
     ZString s("abc");
-    ZString what("a");
-    ZString by("A!");
-    s.replace(what, by);
+    s.replace(ZString("a"), ZString("A!"));
     ASSERT_STREQ(s.value(), "A!bc");
 }
 
 TEST(Test, ReplaceRegressionTest) {
     ZString s("a b a b a b");
-    ZString what("a");
-    ZString by("#");
-    s.replace(what, by);
+    s.replace(ZString("a"), ZString("#"));
     ASSERT_STREQ(s.value(), "# b # b # b");
 }
 
 TEST(Test, ReplaceFirstTree) {
     ZString s("a b a b a b a b a");
-    ZString what("a");
-    ZString by("#");
-    s.replace(what, by, 3);
+    s.replace(ZString("a"), ZString("#"), 3);
     ASSERT_STREQ(s.value(), "# b # b # b a b a");
 }
-
 
 TEST(Test, Zfill) {
     ZString s("1234");
@@ -470,95 +451,119 @@ TEST(Test, Title){
     ASSERT_STREQ(s.title().value(), "How Do_You_Do?!");
 }
 
-TEST(Test, Capitalize){
-    ZString s1("how do_you_DO?!");
-    ASSERT_STREQ(s1.capitalize().value(), "How do_you_do?!");
-
-    ZString s2("Wow");
-    ASSERT_STREQ(s2.capitalize().value(), "Wow");
-
-    ZString s3("WoW");
-    ASSERT_STREQ(s3.capitalize().value(), "Wow");
+TEST(Test, Capitalize1){
+    ZString s("how do_you_DO?!");
+    ASSERT_STREQ(s.capitalize().value(), "How do_you_do?!");
 }
 
-TEST(Test, Lstrip){
-    ZString s1(" howdy ");
-    ASSERT_STREQ(s1.lstrip().value(), "howdy ");
+TEST(Test, Capitalize2){
+    ZString s("Wow");
+    ASSERT_STREQ(s.capitalize().value(), "Wow");
+}
 
-    ZString s2("howdyh");
-    ASSERT_STREQ(s2.lstrip('h').value(), "owdyh");
+TEST(Test, Capitalize3){
+    ZString s("WoW");
+    ASSERT_STREQ(s.capitalize().value(), "Wow");
+}
 
+TEST(Test, Lstrip1){
+    ZString s(" howdy ");
+    ASSERT_STREQ(s.lstrip().value(), "howdy ");
+}
+
+TEST(Test, Lstrip2){
+    ZString s("howdyh");
+    ASSERT_STREQ(s.lstrip('h').value(), "owdyh");
+}
+
+TEST(Test, Lstrip3){
     char chars[] = {'h', 'o'};
-    ZString s3("hohohaha");
-    ASSERT_STREQ(s3.lstrip(chars, 2).value(), "aha");
+    ZString s("hohohaha");
+    ASSERT_STREQ(s.lstrip(chars, 2).value(), "aha");
 }
-TEST(Test, Rstrip){
-    ZString s1(" howdy ");
-    ASSERT_STREQ(s1.rstrip().value(), " howdy");
 
-    ZString s2("howdyh");
-    ASSERT_STREQ(s2.rstrip('h').value(), "howdy");
+TEST(Test, Rstrip1){
+    ZString s(" howdy ");
+    ASSERT_STREQ(s.rstrip().value(), " howdy");
+}
 
+TEST(Test, Rstrip2){
+    ZString s("howdyh");
+    ASSERT_STREQ(s.rstrip('h').value(), "howdy");
+}
+
+TEST(Test, Rstrip3){
     char chars[] = {'h', 'o'};
-    ZString s3("hahahoho");
-    ASSERT_STREQ(s3.rstrip(chars, 2).value(), "haha");
+    ZString s("hahahoho");
+    ASSERT_STREQ(s.rstrip(chars, 2).value(), "haha");
 }
 
+TEST(Test, Strip1){
+    ZString s(" howdy ");
+    ASSERT_STREQ(s.strip().value(), "howdy");
+}
 
-TEST(Test, Strip){
-    ZString s1(" howdy ");
-    ASSERT_STREQ(s1.strip().value(), "howdy");
+TEST(Test, Strip2){
+    ZString s("howdyh");
+    ASSERT_STREQ(s.strip('h').value(), "owdy");
+}
 
-    ZString s2("howdyh");
-    ASSERT_STREQ(s2.strip('h').value(), "owdy");
-
+TEST(Test, Strip3){
     char chars[] = {'h', 'o'};
-    ZString s3("hahahoho");
-    ASSERT_STREQ(s3.strip(chars, 2).value(), "aha");
+    ZString s("hahahoho");
+    ASSERT_STREQ(s.strip(chars, 2).value(), "aha");
 }
 
-TEST(Test, Split){
-    ZString s1("How do you do?");
-    std::vector <ZString> data1 = s1.split();
-    ASSERT_EQ(data1.size(), 4);
-    ASSERT_STREQ(data1[0].value(), "How");
-    ASSERT_STREQ(data1[1].value(), "do");
-    ASSERT_STREQ(data1[2].value(), "you");
-    ASSERT_STREQ(data1[3].value(), "do?");
-
-    ZString s2("AaaBaaC");
-    std::vector <ZString> data2 = s2.split(ZString("aa"));
-    ASSERT_EQ(data2.size(), 3);
-    ASSERT_STREQ(data2[0].value(), "A");
-    ASSERT_STREQ(data2[1].value(), "B");
-    ASSERT_STREQ(data2[2].value(), "C");
-
-    ZString s3("AaaBaaC");
-    std::vector <ZString> data3 = s3.split(ZString("aa"), 1);
-    ASSERT_EQ(data3.size(), 2);
-    ASSERT_STREQ(data3[0].value(), "A");
-    ASSERT_STREQ(data3[1].value(), "BaaC");
+TEST(Test, Split1){
+    ZString s("How do you do?");
+    std::vector <ZString> data = s.split();
+    ASSERT_EQ(data.size(), 4);
+    ASSERT_STREQ(data[0].value(), "How");
+    ASSERT_STREQ(data[1].value(), "do");
+    ASSERT_STREQ(data[2].value(), "you");
+    ASSERT_STREQ(data[3].value(), "do?");
 }
 
-TEST(Test, Rsplit){
-    ZString s1("How do you do?");
-    std::vector <ZString> data1 = s1.rsplit();
-    ASSERT_EQ(data1.size(), 4);
-    ASSERT_STREQ(data1[0].value(), "How");
-    ASSERT_STREQ(data1[1].value(), "do");
-    ASSERT_STREQ(data1[2].value(), "you");
-    ASSERT_STREQ(data1[3].value(), "do?");
+TEST(Test, Split2){
+    ZString s("AaaBaaC");
+    std::vector <ZString> data = s.split(ZString("aa"));
+    ASSERT_EQ(data.size(), 3);
+    ASSERT_STREQ(data[0].value(), "A");
+    ASSERT_STREQ(data[1].value(), "B");
+    ASSERT_STREQ(data[2].value(), "C");
+}
 
-    ZString s2("AaaBaaC");
-    std::vector <ZString> data2 = s2.rsplit(ZString("aa"));
-    ASSERT_EQ(data2.size(), 3);
-    ASSERT_STREQ(data2[0].value(), "A");
-    ASSERT_STREQ(data2[1].value(), "B");
-    ASSERT_STREQ(data2[2].value(), "C");
+TEST(Test, Split3){
+    ZString s("AaaBaaC");
+    std::vector <ZString> data = s.split(ZString("aa"), 1);
+    ASSERT_EQ(data.size(), 2);
+    ASSERT_STREQ(data[0].value(), "A");
+    ASSERT_STREQ(data[1].value(), "BaaC");
+}
 
-    ZString s3("AaaBaaC");
-    std::vector <ZString> data3 = s3.rsplit(ZString("aa"), 1);
-    ASSERT_EQ(data3.size(), 2);
-    ASSERT_STREQ(data3[0].value(), "AaaB");
-    ASSERT_STREQ(data3[1].value(), "C");
+TEST(Test, Rsplit1) {
+    ZString s("How do you do?");
+    std::vector<ZString> data = s.rsplit();
+    ASSERT_EQ(data.size(), 4);
+    ASSERT_STREQ(data[0].value(), "How");
+    ASSERT_STREQ(data[1].value(), "do");
+    ASSERT_STREQ(data[2].value(), "you");
+    ASSERT_STREQ(data[3].value(), "do?");
+}
+
+TEST(Test, Rsplit2) {
+    ZString s("AaaBaaC");
+    std::vector<ZString> data = s.rsplit(ZString("aa"));
+    ASSERT_EQ(data.size(), 3);
+    ASSERT_STREQ(data[0].value(), "A");
+    ASSERT_STREQ(data[1].value(), "B");
+    ASSERT_STREQ(data[2].value(), "C");
+}
+
+TEST(Test, Rsplit3) {
+    ZString s("AaaBaaC");
+    std::vector <ZString> data = s.rsplit(ZString("aa"), 1);
+    ASSERT_EQ(data.size(), 2);
+    ASSERT_STREQ(data[0].value(), "AaaB");
+    ASSERT_STREQ(data[1].value(), "C");
 }
