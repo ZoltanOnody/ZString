@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstring>
+#include <sstream>
+#include <string>
 
 #include "riesenie.h"
 
@@ -507,15 +509,72 @@ ZString ZString::rstrip(char const data[], int const data_len) const {
     ZString stmp(tmp);
     return stmp;
 }
+
 ZString ZString::strip(char const data[], int const data_len) const {
     return this->lstrip(data, data_len).rstrip(data, data_len);
 }
 
 std::vector <ZString> ZString::split(ZString const delimiter, int const limit) const {
-    std::vector <ZString> data;
-    return data;
+    std::vector <ZString> vdata;
+
+    int last = 0;
+    for (int i=0; i < length(); i++) {
+        bool found = false;
+        ZString tmp;
+        for (int j=i; j < length(); j++) {
+            ZString chr(data[j]);
+            tmp = tmp + chr;
+
+            if (tmp == delimiter) {
+                found = true;
+                break;
+            }
+        }
+
+        if(found){
+            ZString ans;
+            for(int j=last; j < i; j++){
+                ZString chr(data[j]);
+                ans += chr;
+            }
+
+            vdata.push_back(ans);
+            last = i+delimiter.length();
+            i = last;
+        }
+
+        if(vdata.size() == limit && limit != -1){
+            break;
+        }
+    }
+
+    ZString ans;
+    for(int j=last; j < length(); j++){
+        ZString chr(data[j]);
+        ans += chr;
+    }
+    vdata.push_back(ans);
+
+    return vdata;
 }
+
 std::vector <ZString> ZString::rsplit(ZString const delimiter, int const limit) const {
+    ZString tmp(*this);
+    tmp.reverse();
+
+    ZString tmp_del(delimiter);
+    tmp_del.reverse();
+
+    std::vector <ZString> tmp_data = tmp.split(tmp_del, limit);
+    for(ZString &s: tmp_data){
+        s.reverse();
+    }
+
+
     std::vector <ZString> data;
+    for(int i=tmp_data.size()-1; i >= 0; i--){
+        data.push_back(tmp_data[i]);
+    }
+
     return data;
 }

@@ -516,7 +516,7 @@ TEST(Test, Strip){
     ZString s3("hahahoho");
     ASSERT_STREQ(s3.strip(chars, 2).value(), "aha");
 }
-/*
+
 TEST(Test, Split){
     ZString s1("How do you do?");
     std::vector <ZString> data1 = s1.split();
@@ -562,4 +562,3 @@ TEST(Test, Rsplit){
     ASSERT_STREQ(data3[0].value(), "AaaB");
     ASSERT_STREQ(data3[1].value(), "C");
 }
-*/
