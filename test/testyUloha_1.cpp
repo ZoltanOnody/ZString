@@ -1,17 +1,11 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
-
-// todo remove
-#include <iostream>
-
-
 #include "gtest/gtest.h"
 #include "../src/riesenie.h"
-#include <sstream>
 
 using namespace ::testing;
 
-//Uloha 1.
+
 TEST_F(Test, EmptyClassDeclaration) {
     ZString s;
     ASSERT_EQ(0, s.length());
@@ -81,7 +75,6 @@ TEST_F(Test, MultiplyZStrings) {
     ASSERT_STREQ(s.value(), "ABAB");
 }
 
-// Uloha 2.
 TEST_F(Test, LessZString) {
     ZString s1("AB");
     ZString s2("AC");
@@ -89,7 +82,6 @@ TEST_F(Test, LessZString) {
 
     ASSERT_TRUE(s1 < s2);
     ASSERT_TRUE(s1 < s3);
-
     ASSERT_FALSE(s1 < s1);
     ASSERT_FALSE(s2 < s3);
     ASSERT_FALSE(s3 < s1);
@@ -102,7 +94,6 @@ TEST_F(Test, GreaterZString) {
 
     ASSERT_TRUE(s2 > s1);
     ASSERT_TRUE(s3 > s1);
-
     ASSERT_FALSE(s1 > s1);
     ASSERT_FALSE(s3 > s2);
     ASSERT_FALSE(s1 > s3);
@@ -122,7 +113,6 @@ TEST_F(Test, LessOrEqualZString) {
 
     ASSERT_TRUE(s1 <= s1);
     ASSERT_TRUE(s1 <= s2);
-
     ASSERT_FALSE(s2 <= s1);
 }
 
@@ -132,7 +122,6 @@ TEST_F(Test, GreaterOrEqualZString) {
 
     ASSERT_TRUE(s1 >= s1);
     ASSERT_TRUE(s2 >= s1);
-
     ASSERT_FALSE(s1 >= s2);
 }
 
@@ -144,63 +133,75 @@ TEST_F(Test, NotEqualZString) {
     ASSERT_FALSE(s1 != s1);
 }
 
-// Uloha 3.
-
-TEST(Test, IsDigit) {
-    ZString s1("01012");
-    ZString s2("01012a");
-
-    ASSERT_TRUE(s1.isdigit());
-    ASSERT_FALSE(s2.isdigit());
+TEST(Test, IsDigit1) {
+    ZString s("01012");
+    ASSERT_TRUE(s.isdigit());
 }
 
-TEST(Test, IsAlnum) {
-    ZString s1("AZaz09");
-    ZString s2("AZaz09_");
-
-    ASSERT_TRUE(s1.isalnum());
-    ASSERT_FALSE(s2.isalnum());
+TEST(Test, IsDigi2t) {
+    ZString s("01012a");
+    ASSERT_FALSE(s.isdigit());
 }
 
-TEST(Test, IsAlpha) {
-    ZString s1("AZaz");
-    ZString s2("AZaz0");
-
-    ASSERT_TRUE(s1.isalpha());
-    ASSERT_FALSE(s2.isalpha());
+TEST(Test, IsAlnum1) {
+    ZString s("AZaz09");
+    ASSERT_TRUE(s.isalnum());
 }
 
-TEST(Test, IsLower) {
-    ZString s1("hellow world, i'm lower!");
-    ZString s2("Nope,...");
-
-    ASSERT_TRUE(s1.islower());
-    ASSERT_FALSE(s2.islower());
+TEST(Test, IsAlnum2) {
+    ZString s("AZaz09_");
+    ASSERT_FALSE(s.isalnum());
 }
 
-TEST(Test, IsUpper) {
-    ZString s1("I'M UPPER!");
-    ZString s2("BUT i AM NOT");
-
-    ASSERT_TRUE(s1.isupper());
-    ASSERT_FALSE(s2.isupper());
+TEST(Test, IsAlpha1) {
+    ZString s("AZaz");
+    ASSERT_TRUE(s.isalpha());
 }
 
-TEST(Test, IsPrintable) {
-    ZString s1(
+TEST(Test, IsAlpha2) {
+    ZString s("AZaz0");
+    ASSERT_FALSE(s.isalpha());
+}
+
+TEST(Test, IsLower1) {
+    ZString s("hellow world, i'm lower!");
+    ASSERT_TRUE(s.islower());
+}
+
+TEST(Test, IsLower2) {
+    ZString s("Nope,...");
+    ASSERT_FALSE(s.islower());
+}
+
+TEST(Test, IsUpper1) {
+    ZString s("I'M UPPER!");
+    ASSERT_TRUE(s.isupper());
+}
+
+TEST(Test, IsUpper2) {
+    ZString s("BUT i AM NOT");
+    ASSERT_FALSE(s.isupper());
+}
+
+TEST(Test, IsPrintable1) {
+    ZString s(
             "'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!\"#$%&\\'()*+,-./:;<=>?@[\\\\]^_`{|}~ \\t\\n\\r\\x0b\\x0c'");
-    ZString s2("\a");
-
-    ASSERT_TRUE(s1.isprintable());
-    ASSERT_FALSE(s2.isprintable());
+    ASSERT_TRUE(s.isprintable());
 }
 
-TEST(Test, IsSpace) {
-    ZString s1(" \\t\\n\\r\\x0b\\x0c");
-    ZString s2("    .");
+TEST(Test, IsPrintable2) {
+    ZString s("\a");
+    ASSERT_FALSE(s.isprintable());
+}
 
-    ASSERT_TRUE(s1.isspace());
-    ASSERT_FALSE(s2.isspace());
+TEST(Test, IsSpace1) {
+    ZString s(" \\t\\n\\r\\x0b\\x0c");
+    ASSERT_TRUE(s.isspace());
+}
+
+TEST(Test, IsSpace2) {
+    ZString s("    .");
+    ASSERT_FALSE(s.isspace());
 }
 
 TEST(Test, Index) {
