@@ -130,20 +130,20 @@ public:
 
     ZString lstrip(char const c=' ') const {
         char data[] = {c};
-        return this->lstrip(data);
+        return this->lstrip(data, 1);
     }
-    ZString lstrip(char const data[]) const;
+    ZString lstrip(char const data[], int const data_len) const;
 
     ZString rstrip(char const c=' ') const{
         char data[] = {c};
-        return this->rstrip(data);
+        return this->rstrip(data, 1);
     }
-    ZString rstrip(char const data[]) const;
+    ZString rstrip(char const data[], int const data_len) const;
     ZString strip(char const c=' ') const {
         char data[] = {c};
-        return this->strip(data);
+        return this->strip(data, 1);
     }
-    ZString strip(char const data[]) const;
+    ZString strip(char const data[], int const data_len) const;
 
     std::vector <ZString> split() const {
         ZString s(" ");

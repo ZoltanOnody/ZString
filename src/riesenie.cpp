@@ -451,14 +451,64 @@ ZString ZString::capitalize() const {
     return tmp;
 }
 
-ZString ZString::lstrip(char const data[]) const {
-    return *this;
+ZString ZString::lstrip(char const data[], int data_len) const {
+    char *tmp = new char [length()];
+
+    bool remove=true;
+    int index = 0;
+    for (int i=0; i < length(); i++) {
+        if(remove){
+            bool removed = false;
+            for(int j=0; j < data_len; j++){
+                if(this->data[i] == data[j]){
+                    removed = true;
+                    break;
+                }
+            }
+
+            if(!removed){
+                tmp[index++] = this->data[i];
+                remove=false;
+            }
+        } else {
+            tmp[index++] = this->data[i];
+        }
+    }
+
+    tmp[index] = '\0';
+
+    ZString stmp(tmp);
+    return stmp;
 }
-ZString ZString::rstrip(char const data[]) const {
-    return *this;
+ZString ZString::rstrip(char const data[], int const data_len) const {
+    char *tmp = new char [length()];
+
+    int index = length()-1;
+    for (int i=index; i >= 0; i--) {
+        bool found = false;
+        for(int j=0; j < data_len; j++){
+            if(this->data[i] == data[j]){
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            index = i;
+            break;
+        }
+    }
+
+    for(int i=0; i <= index; i++){
+        tmp[i] = this->data[i];
+    }
+
+    tmp[index+1] = '\0';
+
+    ZString stmp(tmp);
+    return stmp;
 }
-ZString ZString::strip(char const data[]) const {
-    return *this;
+ZString ZString::strip(char const data[], int const data_len) const {
+    return this->lstrip(data, data_len).rstrip(data, data_len);
 }
 
 std::vector <ZString> ZString::split(ZString const delimiter, int const limit) const {
