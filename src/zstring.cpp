@@ -212,9 +212,6 @@ size_t ZString::rindex(ZString const obj, size_t const start, size_t const end) 
 ZString ZString::reverse() const {
     ZString stmp = *this;
 
-    std::cout << "STMP " << stmp.value() << std::endl;
-    std::cout << "LEN " << stmp.length() << std::endl;
-
     for (size_t i = 0; i < len / 2; i++) {
         char tmp = stmp[i];
         stmp[i] = stmp[len - i - 1];
@@ -308,58 +305,55 @@ ZString ZString::upper() const {
     return tmp;
 }
 
-// todo: check the code bellow
+ZString ZString::replace(ZString const what, ZString const by, int count) const {
 
-void ZString::replace(ZString const what, ZString const by, int count) { // todo: should return a copy
     int tmp_count = this->count(what);
-
     if (count < 0 || count > tmp_count){
         count = tmp_count;
     }
 
-    size_t new_size = length()-count*what.length()+count*by.length(); // length of the new string
+    size_t new_size = length() - (count*what.length()) + (count*by.length()); // length of the new string
     char *tmp = new char[new_size+1];
 
-    int tmp_index = 0;
-    int last_position = 0;
-    for(int i=0; i < count; i++){
+    size_t tmp_index = 0, last_position = 0;
+    for(size_t i=0; i < (size_t) count; i++){
         int start_position = this->find(what, last_position);
 
-        for(int j=last_position; j < start_position; j++) {
-            tmp[tmp_index++] = data[j];
+        if(start_position > 0){
+            for(size_t j=last_position; j < (size_t) start_position; j++) {
+                tmp[tmp_index++] = data[j];
+            }
         }
-        for(int j=0; j < by.length(); j++){
+        for(size_t j=0; j < by.length(); j++){
             tmp[tmp_index++] = by.value()[j];
         }
 
         last_position = start_position + what.length();
     }
 
-    for(int j=last_position; j < length(); j++){
+    for(size_t j=last_position; j < length(); j++){
         tmp[tmp_index++] = data[j];
     }
     tmp[new_size] = '\0';
 
-    data = tmp;
+    return ZString(tmp);
 }
 
-ZString ZString::zfill(int len) const {
+ZString ZString::zfill(unsigned int len) const {
     if(len <= this->length()){
-        ZString tmp(*this);
-        return tmp;
+        return ZString(*this);
     }
+
     char *tmp = new char[len+1];
-    for(int i=0; i < len-this->length(); i++){
+    for(size_t i=0; i < len-this->length(); i++){
         tmp[i] = '0';
     }
-    for(int i=0; i < this->length(); i++){
+    for(size_t i=0; i < this->length(); i++){
         tmp[i+len-this->length()] = data[i];
     }
-
     tmp[len] = '\0';
 
-    ZString s(tmp);
-    return s;
+    return ZString(tmp);
 }
 
 ZString ZString::swapcase() const {
@@ -377,54 +371,52 @@ ZString ZString::swapcase() const {
 }
 
 
-ZString ZString::center(int len, char fill) const {
+ZString ZString::center(size_t len, char const fill) const {
     if(this->length() > len){
         len = this->length();
     }
 
-    char *tmp_data = new char [len];
+    char *tmp = new char [len];
+
     int last_index = 0;
-
-    for(int i=0; i < (len-this->length())/2; i++){
-        tmp_data[last_index++] = fill;
+    for(size_t i=0; i < (len-this->length())/2; i++){
+        tmp[last_index++] = fill;
     }
 
-    for(int i=0; i < this->length(); i++){
-        tmp_data[last_index++] = data[i];
+    for(size_t i=0; i < this->length(); i++){
+        tmp[last_index++] = data[i];
     }
 
-    for(int i=0; i < (len-this->length()+1)/2; i++){
-        tmp_data[last_index++] = fill;
+    for(size_t i=0; i < (len-this->length()+1)/2; i++){
+        tmp[last_index++] = fill;
     }
 
-    ZString tmp(tmp_data);
-    return tmp;
+    return ZString(tmp);
 }
 
-ZString ZString::ljust(int len, char fill) const {
+ZString ZString::ljust(size_t len, char fill) const {
     if(this->length() > len){
         len = this->length();
     }
 
-    char *tmp_data = new char [len];
-    int last_index = 0;
+    char *tmp = new char [len];
 
-    for(int i=0; i < (len-this->length()); i++){
-        tmp_data[last_index++] = fill;
+    size_t last_index = 0;
+    for(size_t i=0; i < (len-this->length()); i++){
+        tmp[last_index++] = fill;
     }
 
-    for(int i=0; i < this->length(); i++){
-        tmp_data[last_index++] = data[i];
+    for(size_t i=0; i < this->length(); i++){
+        tmp[last_index++] = data[i];
     }
 
-    ZString tmp(tmp_data);
-    return tmp;
+    return ZString(tmp);
 }
 
 ZString ZString::title() const {
     char *tmp = new char [this->length()+1];
 
-    for (int i=0; i < this->length(); i++) {
+    for (size_t i=0; i < this->length(); i++) {
         tmp[i] = data[i];
         if (i == 0 || !ZString(tmp[i-1]).isalpha()) {
             tmp[i] = to_upper_letter(tmp[i]);
@@ -432,11 +424,9 @@ ZString ZString::title() const {
             tmp[i] = to_lower_letter(tmp[i]);
         }
     }
-
     tmp[this->length()] = '\0';
 
-    ZString ztmp(tmp);
-    return ztmp;
+    return ZString(tmp);
 }
 
 ZString ZString::capitalize() const {
@@ -450,15 +440,15 @@ ZString ZString::capitalize() const {
     return tmp;
 }
 
-ZString ZString::lstrip(char const data[], int data_len) const {
-    char *tmp = new char [length()];
+ZString ZString::lstrip(char const data[], size_t data_len) const {
+    char *tmp = new char [this->length()];
 
     bool remove=true;
     int index = 0;
-    for (int i=0; i < length(); i++) {
+    for (size_t i=0; i < this->length(); i++) {
         if(remove){
             bool removed = false;
-            for(int j=0; j < data_len; j++){
+            for(size_t j=0; j < data_len; j++){
                 if(this->data[i] == data[j]){
                     removed = true;
                     break;
@@ -476,14 +466,13 @@ ZString ZString::lstrip(char const data[], int data_len) const {
 
     tmp[index] = '\0';
 
-    ZString stmp(tmp);
-    return stmp;
+    return ZString(tmp);
 }
 ZString ZString::rstrip(char const data[], int const data_len) const {
     char *tmp = new char [length()];
 
-    int index = length()-1;
-    for (int i=index; i >= 0; i--) {
+    size_t index = length()-1;
+    for (size_t i=index+1; i-- > 0;) {
         bool found = false;
         for(int j=0; j < data_len; j++){
             if(this->data[i] == data[j]){
@@ -500,27 +489,24 @@ ZString ZString::rstrip(char const data[], int const data_len) const {
     for(int i=0; i <= index; i++){
         tmp[i] = this->data[i];
     }
-
     tmp[index+1] = '\0';
 
-    ZString stmp(tmp);
-    return stmp;
+    return ZString(tmp);
 }
 
 ZString ZString::strip(char const data[], int const data_len) const {
     return this->lstrip(data, data_len).rstrip(data, data_len);
 }
-
+// todo: check the code bellow
 std::vector <ZString> ZString::split(ZString const delimiter, int const limit) const {
     std::vector <ZString> vdata;
 
-    int last = 0;
-    for (int i=0; i < length(); i++) {
+    size_t last = 0;
+    for (size_t i=0; i < this->length(); i++) {
         bool found = false;
         ZString tmp;
-        for (int j=i; j < length(); j++) {
-            ZString chr(data[j]);
-            tmp = tmp + chr;
+        for (size_t j=i; j < this->length(); j++) {
+            tmp = tmp + ZString(data[j]);
 
             if (tmp == delimiter) {
                 found = true;
@@ -530,7 +516,7 @@ std::vector <ZString> ZString::split(ZString const delimiter, int const limit) c
 
         if(found){
             ZString ans;
-            for(int j=last; j < i; j++){
+            for(size_t j=last; j < i; j++){
                 ZString chr(data[j]);
                 ans += chr;
             }
@@ -546,9 +532,8 @@ std::vector <ZString> ZString::split(ZString const delimiter, int const limit) c
     }
 
     ZString ans;
-    for(int j=last; j < length(); j++){
-        ZString chr(data[j]);
-        ans += chr;
+    for(size_t j=last; j < length(); j++){
+        ans += ZString(data[j]);
     }
     vdata.push_back(ans);
 
@@ -566,7 +551,7 @@ std::vector <ZString> ZString::rsplit(ZString const delimiter, int const limit) 
     }
 
     std::vector <ZString> data;
-    for(int i=tmp_data.size()-1; i >= 0; i--){
+    for(size_t i=tmp_data.size(); i-- > 0;){
         data.push_back(tmp_data[i]);
     }
 

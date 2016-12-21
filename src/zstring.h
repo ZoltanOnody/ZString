@@ -27,14 +27,14 @@ public:
     ZString(char const data);
     ZString(char const *data);
 
-    char operator[](int const index) const {
+    char operator[](size_t const index) const {
         if (index >= len) {
             throw std::out_of_range("Index out of range!");
         }
         return data[index];
     }
 
-    char &operator[](int const index) {
+    char &operator[](size_t const index) {
         if (index >= len) {
             throw std::out_of_range("Index out of range!");
         }
@@ -119,12 +119,12 @@ public:
     ZString lower() const;
     ZString upper() const;
 
-    void replace(ZString const what, ZString const by, int count=-1);
+    ZString replace(ZString const what, ZString const by, int count=-1) const;
 
-    ZString zfill(int len) const;
+    ZString zfill(unsigned int len) const;
     ZString swapcase() const;
-    ZString center(int len, char fill=' ') const;
-    ZString ljust(int len, char fill=' ') const;
+    ZString center(size_t len, char fill=' ') const;
+    ZString ljust(size_t len, char fill=' ') const;
     ZString title() const;
     ZString capitalize() const;
 
@@ -132,7 +132,7 @@ public:
         char data[] = {c};
         return this->lstrip(data, 1);
     }
-    ZString lstrip(char const data[], int const data_len) const;
+    ZString lstrip(char const data[], size_t const data_len) const;
 
     ZString rstrip(char const c=' ') const{
         char data[] = {c};

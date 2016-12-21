@@ -381,44 +381,37 @@ TEST(Test, Iterable) {
 
 TEST(Test, ReplaceOne) {
     ZString s("The President of US is Obama!");
-    s.replace(ZString("Obama"), ZString("Trump"));
-    ASSERT_STREQ(s.value(), "The President of US is Trump!");
+    ASSERT_STREQ(s.replace(ZString("Obama"), ZString("Trump")).value(), "The President of US is Trump!");
 }
 
 TEST(Test, ReplaceNone) {
     ZString s("Programming");
-    s.replace(ZString("gaming"), ZString(""));
-    ASSERT_STREQ(s.value(), "Programming");
+    ASSERT_STREQ(s.replace(ZString("gaming"), ZString("")).value(), "Programming");
 }
 
 TEST(Test, ReplaceMore) {
     ZString s("aabbcc");
-    s.replace(ZString("ab"), ZString(""));
-    ASSERT_STREQ(s.value(), "abcc");
+    ASSERT_STREQ(s.replace(ZString("ab"), ZString("")).value(), "abcc");
 }
 
 TEST(Test, ReplaceShorter) {
     ZString s("A!B!C!");
-    s.replace(ZString("A!"), ZString("a"));
-    ASSERT_STREQ(s.value(), "aB!C!");
+    ASSERT_STREQ(s.replace(ZString("A!"), ZString("a")).value(), "aB!C!");
 }
 
 TEST(Test, ReplaceLonger) {
     ZString s("abc");
-    s.replace(ZString("a"), ZString("A!"));
-    ASSERT_STREQ(s.value(), "A!bc");
+    ASSERT_STREQ(s.replace(ZString("a"), ZString("A!")).value(), "A!bc");
 }
 
 TEST(Test, ReplaceRegressionTest) {
     ZString s("a b a b a b");
-    s.replace(ZString("a"), ZString("#"));
-    ASSERT_STREQ(s.value(), "# b # b # b");
+    ASSERT_STREQ(s.replace(ZString("a"), ZString("#")).value(), "# b # b # b");
 }
 
 TEST(Test, ReplaceFirstTree) {
     ZString s("a b a b a b a b a");
-    s.replace(ZString("a"), ZString("#"), 3);
-    ASSERT_STREQ(s.value(), "# b # b # b a b a");
+    ASSERT_STREQ(s.replace(ZString("a"), ZString("#"), 3).value(), "# b # b # b a b a");
 }
 
 TEST(Test, Zfill) {
