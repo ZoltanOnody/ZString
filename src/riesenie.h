@@ -12,8 +12,8 @@ class ZString {
 
     bool empty_intersection(char const *container) const;
 
-    bool check_substring(ZString const obj, unsigned int const i, unsigned const end) const {
-        for (unsigned int j = 0; j < obj.length(); j++) {
+    bool check_substring(ZString const obj, size_t const i, size_t end) const {
+        for (size_t j = 0; j < obj.length(); j++) {
             if (i + j >= end || (*this)[i + j] != obj[j]) {
                 return false;
             }
@@ -88,31 +88,31 @@ public:
     bool isspace() const;
 
     // Uloha 4
-    unsigned int index(ZString const obj, unsigned int const start = 0) const;
-    unsigned int index(ZString const obj, unsigned int const start, unsigned int const end) const;
+    size_t index(ZString const obj, size_t const start = 0) const;
+    size_t index(ZString const obj, size_t const start, size_t const end) const;
 
-    unsigned int rindex(ZString const obj, unsigned int const start = 0) const;
-    unsigned int rindex(ZString const obj, unsigned int const start, unsigned int const end) const;
+    size_t rindex(ZString const obj, size_t const start = 0) const;
+    size_t rindex(ZString const obj, size_t const start, size_t const end) const;
 
-    int find(ZString const obj, unsigned int const start = 0) const;
+    int find(ZString const obj, size_t const start = 0) const;
 
-    int find(ZString const obj, unsigned int const start, unsigned int const end) const;
+    int find(ZString const obj, size_t const start, size_t const end) const;
 
-    int rfind(ZString const obj, unsigned int const start = 0) const;
+    int rfind(ZString const obj, size_t const start = 0) const;
 
-    int rfind(ZString const obj, unsigned int const start, unsigned int const end) const;
+    int rfind(ZString const obj, size_t const start, size_t const end) const;
 
-    int count(ZString const obj, unsigned int const start = 0) const;
+    unsigned int count(ZString const obj, size_t const start = 0) const;
 
-    int count(ZString const obj, unsigned int const start, unsigned int const end) const;
+    unsigned int count(ZString const obj, size_t const start, size_t const end) const;
 
-    bool startswith(ZString const obj, unsigned int const start = 0) const;
+    bool startswith(ZString const obj, size_t const start = 0) const;
 
-    bool startswith(ZString const obj, unsigned int const start, unsigned int const end) const;
+    bool startswith(ZString const obj, size_t const start, size_t const end) const;
 
-    bool endswith(ZString const obj, unsigned int const start = 0) const;
+    bool endswith(ZString const obj, size_t const start = 0) const;
 
-    bool endswith(ZString const obj, unsigned int const start, unsigned int const end) const;
+    bool endswith(ZString const obj, size_t const start, size_t const end) const;
 
     void reverse();
 

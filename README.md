@@ -58,3 +58,4 @@ The class will be created in the methodology of TDD and will contain the methods
 - http://stackoverflow.com/questions/33638433/setup-google-test-in-clion
 - http://stackoverflow.com/questions/476272/how-to-properly-overload-the-operator-for-an-ostream
 - http://stackoverflow.com/questions/8164567/how-to-make-my-custom-type-to-work-with-range-based-for-loops
+- http://stackoverflow.com/questions/3623263/reverse-iteration-with-an-unsigned-loop-variable

@@ -30,7 +30,8 @@
 #include <stdio.h>
 #include "gtest/gtest.h"
 
-#include "testyUloha_1.cpp"
+#include "test_zstring.cpp"
+#include "test_helpers.cpp"
 
 GTEST_API_ int main(int argc, char **argv) {
     printf("Running main() from gtest_main.cc\n");

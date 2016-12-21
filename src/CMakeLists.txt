@@ -1,5 +1,4 @@
-set(core_SRCS riesenie.cpp)
+set(core_SRCS riesenie.cpp helpers.cpp helpers.h)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 add_library(core ${core_SRCS})
-add_executable(exe main.cpp)
-target_link_libraries(exe core)

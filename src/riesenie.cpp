@@ -1,14 +1,18 @@
 #include <iostream>
 #include <cstring>
 
+#include "helpers.cpp"
 #include "riesenie.h"
 
 
 ZString::ZString(char const *data) {
-    size_t len = strlen(data);
+    size_t len = 0;
+    for(;data[len] != '\0'; len++);
+
     this->len = len;
     this->data = new char[len+1];
-    strcpy(this->data, data);
+
+    for(unsigned int i=0; i < len+1; this->data[i] = data[i++]);
 }
 
 ZString::ZString(char const c) {
@@ -31,17 +35,15 @@ ZString ZString::operator+(ZString const obj) const {
     size_t new_length = len + obj.length();
 
     char *tmp = new char[new_length + 1];
-    for (int i = 0; i < len; i++) {
+    for (size_t i = 0; i < len; i++) {
         tmp[i] = data[i];
     }
-    for (int i = 0; i < obj.length(); i++) {
+    for (size_t i = 0; i < obj.length(); i++) {
         tmp[len + i] = obj[i];
     }
     tmp[new_length] = '\0';
 
-    ZString new_obj(tmp);
-
-    return new_obj;
+    return ZString(tmp);
 }
 
 void ZString::operator+=(ZString const obj) {
@@ -55,7 +57,7 @@ ZString ZString::operator*(int const mul) const {
     }
 
     ZString ans;
-    for (int i = 0; i < mul; i++) {
+    for (int i = 0; i < mul; i++) { // todo: do it in O(logn)
         ans += *this;
     }
 
@@ -68,7 +70,7 @@ void ZString::operator*=(int const mul) {
 }
 
 bool ZString::operator<(ZString const obj) const {
-    for (int i = 0; i < std::min(len, obj.length()); i++) {
+    for (size_t i = 0; i < std::min(len, obj.length()); i++) {
         if ((*this)[i] < obj[i]) {
             return true;
         } else if ((*this)[i] > obj[i]) {
@@ -80,7 +82,7 @@ bool ZString::operator<(ZString const obj) const {
 }
 
 bool ZString::operator>(ZString const obj) const {
-    for (int i = 0; i < std::min(len, obj.length()); i++) {
+    for (size_t i = 0; i < std::min(len, obj.length()); i++) {
         if ((*this)[i] > obj[i]) {
             return true;
         } else if ((*this)[i] < obj[i]) {
@@ -107,11 +109,10 @@ bool ZString::operator!=(ZString const obj) const {
     return !((*this) == obj);
 }
 
-// Uloha 3
 bool ZString::is_subset(char const *container) const {
-    for (int i = 0; i < len; i++) {
+    for (size_t i = 0; i < len; i++) {
         bool found = false;
-        for (int j = 0; j < strlen(container); j++) {
+        for (size_t j = 0; j < strlen(container); j++) {
             if ((*this)[i] == container[j]) {
                 found = true;
                 break;
@@ -126,8 +127,8 @@ bool ZString::is_subset(char const *container) const {
 }
 
 bool ZString::empty_intersection(char const *container) const {
-    for (int i = 0; i < len; i++) {
-        for (int j = 0; j < strlen(container); j++) {
+    for (size_t i = 0; i < len; i++) {
+        for (size_t j = 0; j < strlen(container); j++) {
             if ((*this)[i] == container[j]) {
                 return false;
             }
@@ -172,14 +173,12 @@ bool ZString::isspace() const {
     return is_subset(allowed) && len > 0;
 }
 
-// Uloha 4
-
-unsigned int ZString::index(ZString const obj, unsigned int const start) const {
+size_t ZString::index(ZString const obj, size_t const start) const {
     return index(obj, start, len);
 }
 
-unsigned int ZString::index(ZString const obj, unsigned int const start, unsigned int const end) const {
-    for (unsigned int i = start; i < end; i++) {
+size_t ZString::index(ZString const obj, size_t start, size_t end) const {
+    for (size_t i = start; i < end; i++) {
         if (check_substring(obj, i, end)) {
             return i;
         }
@@ -188,12 +187,12 @@ unsigned int ZString::index(ZString const obj, unsigned int const start, unsigne
     throw std::invalid_argument("Substring not found!");
 };
 
-unsigned int ZString::rindex(ZString const obj, unsigned int const start) const {
+size_t ZString::rindex(ZString const obj, size_t const start) const {
     return rindex(obj, start, len);
 }
 
-unsigned int ZString::rindex(ZString const obj, unsigned int const start, unsigned int const end) const {
-    for (int i = end - 1; i >= (int) start; i--) {
+size_t ZString::rindex(ZString const obj, size_t const start, size_t const end) const {
+    for (size_t i = end - 1; i-- > start;) {
         if (check_substring(obj, i, end)) {
             return i;
         }
@@ -202,50 +201,49 @@ unsigned int ZString::rindex(ZString const obj, unsigned int const start, unsign
     throw std::invalid_argument("Substring not found!");
 }
 
-void ZString::reverse() {
-    for (unsigned int i = 0; i < len / 2; i++) {
+void ZString::reverse() { // todo: should return a copy
+    for (size_t i = 0; i < len / 2; i++) {
         char tmp = (*this)[i];
         (*this)[i] = (*this)[len - i - 1];
         (*this)[len - i - 1] = tmp;
     }
 }
 
-
-int ZString::find(ZString const obj, unsigned int const start) const {
+int ZString::find(ZString const obj, size_t const start) const {
     return find(obj, start, len);
 }
 
-int ZString::find(ZString const obj, unsigned int const start, unsigned int const end) const {
+int ZString::find(ZString const obj, size_t const start, size_t const end) const {
     try {
-        return index(obj, start, end);
+        return (int) index(obj, start, end);
     }
     catch (std::invalid_argument const &err) {
         return -1;
     }
 }
 
-int ZString::rfind(ZString const obj, unsigned int const start) const {
+int ZString::rfind(ZString const obj, size_t const start) const {
     return rfind(obj, start, len);
 }
 
-int ZString::rfind(ZString const obj, unsigned int const start, unsigned int const end) const {
+int ZString::rfind(ZString const obj, size_t const start, size_t const end) const {
     try {
-        return rindex(obj, start, end);
+        return (int) rindex(obj, start, end);
     }
     catch (std::invalid_argument const &err) {
         return -1;
     }
 }
 
-int ZString::count(ZString const obj, unsigned int const start) const {
+unsigned int ZString::count(ZString const obj, size_t const start) const {
     return count(obj, start, len);
 }
 
-int ZString::count(ZString const obj, unsigned int const start, unsigned int const end) const {
-    int index = start;
-    int count = 0;
+unsigned int ZString::count(ZString const obj, size_t const start, size_t const end) const {
+    int index = (int) start;
+    unsigned int count = 0;
     while (true) {
-        index = find(obj, index, end);
+        index = find(obj, (size_t) index, end);
         if (index == -1) {
             break;
         }
@@ -257,20 +255,20 @@ int ZString::count(ZString const obj, unsigned int const start, unsigned int con
     return count;
 }
 
-bool ZString::startswith(ZString const obj, unsigned int const start) const {
+bool ZString::startswith(ZString const obj, size_t const start) const {
     return startswith(obj, start, len);
 }
 
-bool ZString::startswith(ZString const obj, unsigned int const start, unsigned int const end) const {
+bool ZString::startswith(ZString const obj, size_t const start, size_t const end) const {
     int index = find(obj, start, end);
-    return index == start;
+    return index == (int) start;
 }
 
-bool ZString::endswith(ZString const obj, unsigned int const start) const {
+bool ZString::endswith(ZString const obj, size_t const start) const {
     return endswith(obj, start, len);
 }
 
-bool ZString::endswith(ZString const obj, unsigned int const start, unsigned int const end) const {
+bool ZString::endswith(ZString const obj, size_t const start, size_t const end) const {
     int index = rfind(obj, start, end);
     return index + obj.length() == end;
 }
@@ -278,26 +276,26 @@ bool ZString::endswith(ZString const obj, unsigned int const start, unsigned int
 ZString ZString::lower() const {
     ZString tmp(*this);
 
-    for(unsigned int i=0; i < tmp.length(); i++){
-        if('A' <= tmp[i] && tmp[i] <= 'Z'){
-            tmp[i] += 32;
-        }
+    for(char &c: tmp){
+        c = to_lower_letter(c);
     }
+
     return tmp;
 }
 
 ZString ZString::upper() const {
     ZString tmp(*this);
 
-    for(unsigned int i=0; i < tmp.length(); i++){
-        if('a' <= tmp[i] && tmp[i] <= 'z'){
-            tmp[i] -= 32;
-        }
+    for(char &c: tmp){
+        c = to_upper_letter(c);
     }
+
     return tmp;
 }
 
-void ZString::replace(ZString const what, ZString const by, int count) {
+// todo: check the code bellow
+
+void ZString::replace(ZString const what, ZString const by, int count) { // todo: should return a copy
     int tmp_count = this->count(what);
 
     if (count < 0 || count > tmp_count){
@@ -353,10 +351,10 @@ ZString ZString::swapcase() const {
     ZString tmp(*this);
 
     for(char &c: tmp){
-        if('a' <= c && c <= 'z'){
-            c -= 32;
-        } else if ('A' <= c && c <= 'Z'){
-            c += 32;
+        if(is_lower_letter(c)){
+            c = to_upper_letter(c);
+        } else if (is_upper_letter(c)){
+            c = to_lower_letter(c);
         }
     }
 
@@ -414,13 +412,9 @@ ZString ZString::title() const {
     for (int i=0; i < this->length(); i++) {
         tmp[i] = data[i];
         if (i == 0 || !ZString(tmp[i-1]).isalpha()) {
-            if('a' <= tmp[i] && tmp[i] <= 'z'){
-                tmp[i] -= 32;
-            }
+            tmp[i] = to_upper_letter(tmp[i]);
         } else {
-            if('A' <= tmp[i] && tmp[i] <= 'Z'){
-                tmp[i] += 32;
-            }
+            tmp[i] = to_lower_letter(tmp[i]);
         }
     }
 
@@ -434,14 +428,9 @@ ZString ZString::capitalize() const {
     ZString tmp(*this);
 
     for(char &c: tmp){
-        if('A' <= c && c <= 'Z'){
-            c += 32;
-        }
+        c = to_lower_letter(c);
     }
-
-    if('a' <= tmp[0] && tmp[0] <= 'z'){
-        tmp[0] -= 32;
-    }
+    tmp[0] = to_upper_letter(tmp[0]);
 
     return tmp;
 }
