@@ -1,8 +1,7 @@
 # Implementation of a *minimalistic Pythonish string* class in C++
 
-
-The class will be created in the methodology of TDD and will contain the methods bellow. It will be built upon `char [] str;`.
-
+The project was created for the course [Programming 3](https://sluzby.fmph.uniba.sk/infolist/en/1-AIN-171).
+The following methods are *(somehow)* implemented.
 
 ```
 [
