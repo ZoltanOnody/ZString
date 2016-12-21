@@ -2,7 +2,7 @@
 #include <cstring>
 
 #include "helpers.cpp"
-#include "riesenie.h"
+#include "zstring.h"
 
 
 ZString::ZString(char const *data) {

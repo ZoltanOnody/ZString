@@ -1,7 +1,7 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
 #include "gtest/gtest.h"
-#include "../src/riesenie.h"
+#include "../src/zstring.h"
 
 using namespace ::testing;
 
