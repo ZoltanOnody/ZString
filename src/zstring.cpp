@@ -9,7 +9,7 @@ ZString::ZString(ZString const &obj){
     this->len = obj.length();
     this->data = new char[this->len+1];
 
-    for(size_t i=0; i < this->len; this->data[i] = obj[i++]);
+    for(size_t i=0; i < this->len; this->data[i] = obj[i], i++);
     this->data[this->len] = '\0';
 }
 
@@ -20,7 +20,7 @@ ZString::ZString(char const *data) {
     this->len = len;
     this->data = new char[len+1];
 
-    for(size_t i=0; i < len+1; this->data[i] = data[i++]);
+    for(size_t i=0; i < len+1; this->data[i] = data[i], i++);
 }
 
 ZString::ZString(char const c) {
@@ -44,7 +44,7 @@ ZString ZString::operator+(ZString const obj) const {
 
     char *tmp = new char[new_length + 1];
     for (size_t i = 0; i < len; i++) {
-        tmp[i] = data[i];
+        tmp[i] = (*this)[i];
     }
     for (size_t i = 0; i < obj.length(); i++) {
         tmp[len + i] = obj[i];
@@ -321,7 +321,7 @@ ZString ZString::replace(ZString const what, ZString const by, int count) const 
 
         if(start_position > 0){
             for(size_t j=last_position; j < (size_t) start_position; j++) {
-                tmp[tmp_index++] = data[j];
+                tmp[tmp_index++] = (*this)[j];
             }
         }
         for(size_t j=0; j < by.length(); j++){
@@ -332,7 +332,7 @@ ZString ZString::replace(ZString const what, ZString const by, int count) const 
     }
 
     for(size_t j=last_position; j < length(); j++){
-        tmp[tmp_index++] = data[j];
+        tmp[tmp_index++] = (*this)[j];
     }
     tmp[new_size] = '\0';
 
@@ -349,7 +349,7 @@ ZString ZString::zfill(unsigned int len) const {
         tmp[i] = '0';
     }
     for(size_t i=0; i < this->length(); i++){
-        tmp[i+len-this->length()] = data[i];
+        tmp[i+len-this->length()] = (*this)[i];
     }
     tmp[len] = '\0';
 
@@ -384,7 +384,7 @@ ZString ZString::center(size_t len, char const fill) const {
     }
 
     for(size_t i=0; i < this->length(); i++){
-        tmp[last_index++] = data[i];
+        tmp[last_index++] = (*this)[i];
     }
 
     for(size_t i=0; i < (len-this->length()+1)/2; i++){
@@ -407,7 +407,7 @@ ZString ZString::ljust(size_t len, char fill) const {
     }
 
     for(size_t i=0; i < this->length(); i++){
-        tmp[last_index++] = data[i];
+        tmp[last_index++] = (*this)[i];
     }
 
     return ZString(tmp);
@@ -417,7 +417,7 @@ ZString ZString::title() const {
     char *tmp = new char [this->length()+1];
 
     for (size_t i=0; i < this->length(); i++) {
-        tmp[i] = data[i];
+        tmp[i] = (*this)[i];
         if (i == 0 || !ZString(tmp[i-1]).isalpha()) {
             tmp[i] = to_upper_letter(tmp[i]);
         } else {
@@ -449,18 +449,18 @@ ZString ZString::lstrip(char const data[], size_t data_len) const {
         if(remove){
             bool removed = false;
             for(size_t j=0; j < data_len; j++){
-                if(this->data[i] == data[j]){
+                if((*this)[i] == data[j]){
                     removed = true;
                     break;
                 }
             }
 
             if(!removed){
-                tmp[index++] = this->data[i];
+                tmp[index++] = (*this)[i];
                 remove=false;
             }
         } else {
-            tmp[index++] = this->data[i];
+            tmp[index++] = (*this)[i];
         }
     }
 
@@ -468,14 +468,14 @@ ZString ZString::lstrip(char const data[], size_t data_len) const {
 
     return ZString(tmp);
 }
-ZString ZString::rstrip(char const data[], int const data_len) const {
-    char *tmp = new char [length()];
+ZString ZString::rstrip(char const data[], size_t const data_len) const {
+    char *tmp = new char [length()+1];
 
-    size_t index = length()-1;
-    for (size_t i=index+1; i-- > 0;) {
+    size_t index = length();
+    for (size_t i=index; i-- > 0;) {
         bool found = false;
-        for(int j=0; j < data_len; j++){
-            if(this->data[i] == data[j]){
+        for(size_t j=0; j < data_len; j++){
+            if((*this)[i] == data[j]){
                 found = true;
                 break;
             }
@@ -486,18 +486,18 @@ ZString ZString::rstrip(char const data[], int const data_len) const {
         }
     }
 
-    for(int i=0; i <= index; i++){
-        tmp[i] = this->data[i];
+    for(size_t i=0; i <= index; i++){
+        tmp[i] = (*this)[i];
     }
     tmp[index+1] = '\0';
 
     return ZString(tmp);
 }
 
-ZString ZString::strip(char const data[], int const data_len) const {
+ZString ZString::strip(char const data[], size_t const data_len) const {
     return this->lstrip(data, data_len).rstrip(data, data_len);
 }
-// todo: check the code bellow
+
 std::vector <ZString> ZString::split(ZString const delimiter, int const limit) const {
     std::vector <ZString> vdata;
 
@@ -506,7 +506,7 @@ std::vector <ZString> ZString::split(ZString const delimiter, int const limit) c
         bool found = false;
         ZString tmp;
         for (size_t j=i; j < this->length(); j++) {
-            tmp = tmp + ZString(data[j]);
+            tmp = tmp + ZString((*this)[j]);
 
             if (tmp == delimiter) {
                 found = true;
@@ -517,7 +517,7 @@ std::vector <ZString> ZString::split(ZString const delimiter, int const limit) c
         if(found){
             ZString ans;
             for(size_t j=last; j < i; j++){
-                ZString chr(data[j]);
+                ZString chr((*this)[j]);
                 ans += chr;
             }
 
@@ -526,14 +526,14 @@ std::vector <ZString> ZString::split(ZString const delimiter, int const limit) c
             i = last;
         }
 
-        if(vdata.size() == limit && limit != -1){
+        if(limit != -1 && vdata.size() == (size_t) limit){
             break;
         }
     }
 
     ZString ans;
     for(size_t j=last; j < length(); j++){
-        ans += ZString(data[j]);
+        ans += ZString((*this)[j]);
     }
     vdata.push_back(ans);
 

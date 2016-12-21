@@ -490,6 +490,10 @@ TEST(Test, Rstrip3){
     ZString s("hahahoho");
     ASSERT_STREQ(s.rstrip(chars, 2).value(), "haha");
 }
+TEST(Test, Rstrip4Reggression){
+    ZString s(" howdy");
+    ASSERT_STREQ(s.rstrip().value(), " howdy");
+}
 
 TEST(Test, Strip1){
     ZString s(" howdy ");

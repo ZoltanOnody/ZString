@@ -138,12 +138,12 @@ public:
         char data[] = {c};
         return this->rstrip(data, 1);
     }
-    ZString rstrip(char const data[], int const data_len) const;
+    ZString rstrip(char const data[], size_t const data_len) const;
     ZString strip(char const c=' ') const {
         char data[] = {c};
         return this->strip(data, 1);
     }
-    ZString strip(char const data[], int const data_len) const;
+    ZString strip(char const data[], size_t const data_len) const;
 
     std::vector <ZString> split() const {
         ZString s(" ");
