@@ -5,6 +5,14 @@
 #include "zstring.h"
 
 
+ZString::ZString(ZString const &obj){
+    this->len = obj.length();
+    this->data = new char[this->len+1];
+
+    for(size_t i=0; i < this->len; this->data[i] = obj[i++]);
+    this->data[this->len] = '\0';
+}
+
 ZString::ZString(char const *data) {
     size_t len = 0;
     for(;data[len] != '\0'; len++);
@@ -12,7 +20,7 @@ ZString::ZString(char const *data) {
     this->len = len;
     this->data = new char[len+1];
 
-    for(unsigned int i=0; i < len+1; this->data[i] = data[i++]);
+    for(size_t i=0; i < len+1; this->data[i] = data[i++]);
 }
 
 ZString::ZString(char const c) {
@@ -201,12 +209,19 @@ size_t ZString::rindex(ZString const obj, size_t const start, size_t const end) 
     throw std::invalid_argument("Substring not found!");
 }
 
-void ZString::reverse() { // todo: should return a copy
+ZString ZString::reverse() const {
+    ZString stmp = *this;
+
+    std::cout << "STMP " << stmp.value() << std::endl;
+    std::cout << "LEN " << stmp.length() << std::endl;
+
     for (size_t i = 0; i < len / 2; i++) {
-        char tmp = (*this)[i];
-        (*this)[i] = (*this)[len - i - 1];
-        (*this)[len - i - 1] = tmp;
+        char tmp = stmp[i];
+        stmp[i] = stmp[len - i - 1];
+        stmp[len - i - 1] = tmp;
     }
+
+    return stmp;
 }
 
 int ZString::find(ZString const obj, size_t const start) const {
@@ -541,15 +556,13 @@ std::vector <ZString> ZString::split(ZString const delimiter, int const limit) c
 }
 
 std::vector <ZString> ZString::rsplit(ZString const delimiter, int const limit) const {
-    ZString tmp(*this);
-    tmp.reverse();
+    ZString tmp = this->reverse();
 
-    ZString tmp_del(delimiter);
-    tmp_del.reverse();
+    ZString tmp_del = delimiter.reverse();
 
     std::vector <ZString> tmp_data = tmp.split(tmp_del, limit);
     for(ZString &s: tmp_data){
-        s.reverse();
+        s = s.reverse();
     }
 
     std::vector <ZString> data;

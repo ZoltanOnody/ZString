@@ -5,7 +5,6 @@
 
 using namespace ::testing;
 
-
 TEST_F(Test, EmptyClassDeclaration) {
     ZString s;
     ASSERT_EQ(0, s.length());
@@ -277,8 +276,8 @@ TEST(Test, RIndex2Regression) {
 
 TEST(Test, Reverse) {
     ZString s1("Howdy");
-    s1.reverse();
-    ASSERT_STREQ(s1.value(), "ydwoH");
+    ASSERT_STREQ(s1.reverse().value(), "ydwoH");
+    ASSERT_STREQ(s1.value(), "Howdy"); // regression test
 }
 
 TEST(Test, Find) {

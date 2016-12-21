@@ -23,7 +23,7 @@ class ZString {
 
 public:
     ZString() : ZString("") {};
-
+    ZString(ZString const &obj);
     ZString(char const data);
     ZString(char const *data);
 
@@ -114,7 +114,7 @@ public:
 
     bool endswith(ZString const obj, size_t const start, size_t const end) const;
 
-    void reverse();
+    ZString reverse() const;
 
     ZString lower() const;
     ZString upper() const;
