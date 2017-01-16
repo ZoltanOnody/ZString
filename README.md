@@ -106,7 +106,7 @@ ZString("abcb").count(ZString('b')) == 2;
 
 and replace them.
 ```
-ZString("abcb").replace(ZString('BE')) == ZString("aBEcBE");
+ZString("abcb").replace(ZString('b'), ZString('BE')) == ZString("aBEcBE");
 ```
 
 Do some basic *ZString* manipulation,
